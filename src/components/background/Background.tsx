@@ -5,19 +5,15 @@ import BackgroundSquare from './BackgroundSquare';
 import { blue } from '@material-ui/core/colors';
 import { connect } from 'react-redux';
 import { reduxState } from '../../types/redux/reducer';
-import { backgroundSquareProp } from '../../types/components/background/background-square';
+import { backgroundSquareProp } from '../../types/common/background-square';
 
 interface ReduxStateProps {
     backgroundSquareProps: backgroundSquareProp[]
 }
 
-type Props = WithStyles<typeof styles> & ReduxStateProps;
-
-const mapStateToProps = (state: reduxState):ReduxStateProps => {
-    return {
-        backgroundSquareProps: state.backgroundSquareProps.map((obj)=>(Object.assign({},obj)))
-    };
-};
+const mapStateToProps = (state: reduxState):ReduxStateProps => ({
+        backgroundSquareProps: state.backgroundSquareProps.map((obj: backgroundSquareProp): backgroundSquareProp=>(Object.assign({},obj)))
+});
 
 const styles = (theme:Theme) :StyleRules => createStyles({
     background:{
@@ -30,6 +26,8 @@ const styles = (theme:Theme) :StyleRules => createStyles({
         overflow: "hidden"
     }
 });
+
+type Props = WithStyles<typeof styles> & ReduxStateProps;
 
 class Background extends React.Component <Props>{
     
@@ -64,5 +62,4 @@ class Background extends React.Component <Props>{
     }
 }
 
-export default connect<ReduxStateProps>(mapStateToProps)(withStyles(styles)(Background));
-
+export default connect(mapStateToProps)(withStyles(styles)(Background));

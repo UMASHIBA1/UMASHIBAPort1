@@ -2,7 +2,7 @@ import {
     AddBackgroundSquarePropsAction,
     ChangeBackgroundSquarePropsAction
 } from './actions'
-import { backgroundSquareProp } from '../components/background/background-square'; 
+import { backgroundSquareProp } from '../common/background-square'; 
 
 export interface reduxState {
     backgroundSquareProps: backgroundSquareProp[];

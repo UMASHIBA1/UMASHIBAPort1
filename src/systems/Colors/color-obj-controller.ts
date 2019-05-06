@@ -17,8 +17,9 @@ import deepOrange from '@material-ui/core/colors/deepOrange';
 import brown from '@material-ui/core/colors/brown';
 import grey from '@material-ui/core/colors/grey';
 import blueGrey from '@material-ui/core/colors/blueGrey';
-import { colorNames } from '../../types/systems/colors/color-word-controller';
+import { colorName } from '../../types/systems/colors/color-word-controller';
 import { ColorObjects } from '../../types/systems/colors/color-obj-controller';
+import { Color } from '@material-ui/core';
 
 export default class ColorObjController {
     private _colors: ColorObjects;
@@ -46,12 +47,7 @@ export default class ColorObjController {
         };
     }
 
-    randomColor() {
-        const randomNum = Math.floor(Math.random()*Object.keys(this._colors).length);
-        return this._colors[randomNum];
-    }
-
-    specifiedColor(colorName: colorNames) {
+    specifiedColor(colorName: colorName):Color {
         return this._colors[colorName];
     }
 }

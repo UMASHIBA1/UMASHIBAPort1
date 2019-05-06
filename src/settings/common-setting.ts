@@ -1,2 +1,3 @@
-// this setting is based Material-UI breakpoint;
-export const breakpointWidth = 960;
+// this breakpoint setting is based Material-UI breakpoint;
+export const breakpointWidth: number = 960;
+

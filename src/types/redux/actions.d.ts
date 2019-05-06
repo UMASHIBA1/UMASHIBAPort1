@@ -1,11 +1,11 @@
-import {CHANGE_BACKGROUND_SQUARE_PROPS, ADD_BACKGROUND_SQUARE_PROPS} from '../../redux/constant/action-types';
+import { TYPE_CHANGE_BACKGROUND_SQUARE_PROPS, TYPE_ADD_BACKGROUND_SQUARE_PROPS } from './action-types';
 
 export interface ChangeBackgroundSquarePropsAction {
-    type: typeof CHANGE_BACKGROUND_SQUARE_PROPS;
+    type: TYPE_CHANGE_BACKGROUND_SQUARE_PROPS;
     payload: object;
 }
 
 export interface AddBackgroundSquarePropsAction {
-    type: typeof ADD_BACKGROUND_SQUARE_PROPS;
+    type: TYPE_ADD_BACKGROUND_SQUARE_PROPS;
     payload: object;
 }

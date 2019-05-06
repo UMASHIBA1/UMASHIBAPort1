@@ -1,7 +1,7 @@
-import { colorNames } from '../../types/systems/colors/color-word-controller';
+import { colorName } from '../../types/systems/colors/color-word-controller';
 
 export default class ColorWordController{
-    private _colors: colorNames[];
+    private _colors: colorName[];
     constructor(){
         this._colors =   [
             "red",
@@ -26,7 +26,7 @@ export default class ColorWordController{
                     ]
     }
 
-    randomColorWord(){
+    randomColorWord():colorName{
         const randomNum = Math.floor(Math.random()*Object.keys(this._colors).length);
         return this._colors[randomNum];
     }

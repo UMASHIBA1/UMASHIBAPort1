@@ -1,8 +1,8 @@
-import { colorNames } from '../../systems/colors/color-word-controller';
+import { colorName } from '../systems/colors/color-word-controller';
 
 export interface backgroundSquareProp {
     id: number,
-    colorName: colorNames,
+    colorName: colorName,
     word: string,
     sideLength: number,
     zindex: number,

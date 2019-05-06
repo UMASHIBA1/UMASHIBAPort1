@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import {createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import { StyleRules } from '@material-ui/core/styles';
-import { backgroundSquareProp } from '../../types/components/background/background-square';
-import ColorController from '../../systems/Colors/color-obj-controller';
+import { backgroundSquareProp } from '../../types/common/background-square';
+import ColorObjController from '../../systems/Colors/color-obj-controller';
 
 const tiltAngle = "45deg";
 
@@ -33,7 +33,7 @@ interface Props extends WithStyles<typeof styles>,backgroundSquareProp{};
 class BackgroundSquare extends React.Component <Props>{
     
     render(){
-        const colorObj = new ColorController();
+        const colorObj = new ColorObjController();
         return (
             <Paper
                 data-id={this.props.id}

@@ -1,62 +1,56 @@
-import {colorNames } from '../../types/systems/colors/color-word-controller';
-import { backgroundSquareProp } from '../../types/components/background/background-square';
+import {colorName } from '../../types/systems/colors/color-word-controller';
+import { backgroundSquareProp } from '../../types/common/background-square';
 import { LocationXY } from '../../types/systems/background/background-common';
+import { BGSquareLocationCalcuratorProps } from '../../types/systems/background/BG-square-location-calcurator';
 
 // BGSquareのLocationを座標から計算し、BackgroundSquarePropをはく
 class BGSquareLocationCalcurator {
-    // 中心BGSquareのBGSquareの座標を(0,0)、
+    // 中心BGSquareの座標を(0,0)、
     // 中心のBGSquareの真上のBGSquareの座標が(0,-2)
     // 中心のBGSquareの左下のBGSquareの座標が(-1,1)
     // それらをhorizontalIndexとverticalIndexに表す。
     private _id: number;
-    private _colorName: colorNames;
+    private _colorName: colorName;
     private _word: string;
     private _sideLength: number;
     private _zindex: number;
 
+    private _centerLocation: LocationXY;
     private _horizontalIndex: number;
     private _verticalIndex: number;
-    
-    private  _windowWidth: number;
-    private  _windowHeight: number;
 
-    constructor(
-        id: number,
-        colorName: colorNames,
-        word: string,
-        sideLength: number,
-        zindex: number,
 
-        horizontalIndex: number,
-        verticalIndex: number
-        ){
+    constructor({ 
+        id,
+        colorName,
+        word,
+        sideLength,
+        zindex,
+        centerLocation,
+        horizontalIndex,
+        verticalIndex 
+    }: BGSquareLocationCalcuratorProps){
         this._id = id;
         this._colorName = colorName;
         this._word = word;
         this._sideLength=sideLength;
         this._zindex = zindex;
 
-        this._windowHeight = window.innerHeight;
-        this._windowWidth = window.innerWidth;
-        
+        this._centerLocation = centerLocation;
         this._horizontalIndex = horizontalIndex;
         this._verticalIndex = verticalIndex;
     }
 
 
-    private _calculateCenterLocation(): LocationXY{
-        const centerX: number = 1/2 * this._windowWidth - 1/2 * this._sideLength;
-        const centerY: number = 1/2 * this._windowHeight - 1/2 * this._sideLength;
-        return {X:centerX, Y:centerY}
-    }
-
     private _calculateTargetLocation(): LocationXY{
-        const root2 = Math.sqrt(2);
-        const {X,Y} = this._calculateCenterLocation();
-        const targetX: number = X + ((1/root2 * this._sideLength + root2 * this._sideLength) * this._horizontalIndex);
-        const targetY: number = Y + ((1/root2 * this._sideLength + root2 * this._sideLength) * this._verticalIndex);
+        // const isOddNum: boolean = Math.abs(this._horizontalIndex)%2==1?true:false;
+        const root2: number = Math.sqrt(2);
+        const {X,Y}:LocationXY = this._centerLocation;
+        const targetX: number = X + root2 * this._sideLength * this._horizontalIndex;
+        const targetY: number = Y + root2 * this._sideLength * this._verticalIndex;
         return {X: targetX,Y: targetY};
     }
+
 
     createOneSquare(): backgroundSquareProp{
         const targetLocation: LocationXY = this._calculateTargetLocation();

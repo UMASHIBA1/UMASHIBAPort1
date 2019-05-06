@@ -1,4 +1,4 @@
-export type colorNames = "red"        |
+export type colorName = "red"        |
                          "pink"       |
                          "purple"     |
                          "deepPurple" |
