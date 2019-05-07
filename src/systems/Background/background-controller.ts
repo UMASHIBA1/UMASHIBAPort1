@@ -27,17 +27,17 @@ export default class BackgroundController {
         if(this._windowWidth<breakpointWidth){
             return 3;
         }else{
-            return 9;
+            return 5;
         }
     }
 
     private _calculateSquareWidthAndHeight(): number{
-        return this._windowWidth/this._horizontalSquareNum;
+        return this._windowWidth/(this._horizontalSquareNum - 1);
     }
 
     private _calculateVerticalSquareNum(): number{
         const squareHeight: number = this._squareWidthAndHeight;
-        return Math.floor(this._windowHeight/squareHeight);
+        return Math.ceil(this._windowHeight/squareHeight)+1;
     }
 
     private _calculateSquareSideLength(): number{
@@ -49,8 +49,14 @@ export default class BackgroundController {
     
     // squareの真ん中がちょうど画面の真ん中に来るようなtopとleftの位置を計算します。
     private _calculateCenterLocation(): LocationXY{
-        const centerX: number = 1/2 * this._windowWidth - 1/2 * this._sideLength;
-        const centerY: number = 1/2 * this._windowHeight - 1/2 * this._sideLength;
+        const centerX: number = this._windowWidth/2 - this._sideLength/2;
+        const centerY: number = this._windowHeight/2 - this._sideLength/2;
+        console.group('calc');
+        console.log(`this.width: ${this._windowWidth}`);
+        console.log(`this.height: ${this._windowHeight}`);
+        console.log(`centerLocation: (${centerX},${centerY})`);
+        console.log(`sideLength: ${this._sideLength}`);
+        console.groupEnd();
         return {X:centerX, Y:centerY};
     }
 
@@ -68,15 +74,20 @@ export default class BackgroundController {
             Y: centerLocation.Y + this._sideLength * 1/Math.sqrt(2)
         }
 
-        for (let i=0;i<this._verticalSquareNum + 2;i++){
+        console.log(`centerLocation: ${centerLocation.X},${centerLocation.Y}`);
+        console.log(`slipCenterLocation: ${slipCenterLocation.X}, ${slipCenterLocation.Y}`);
+        
+
+        for (let i=0;i<this._verticalSquareNum;i++){
             let tmpNowHorizontalIndex: number = nowHorizontalIndex;
 
-            for (let k=0;k<this._horizontalSquareNum + 2;k++){
+            for (let k=0;k<this._horizontalSquareNum;k++){
                 
                 const SquareObj: BGSquareLocationCalcurator = new BGSquareLocationCalcurator(
                     {
                         id: nowId,
                         colorName: colorObj.randomColorWord(),
+                        // word: `(${nowVerticalIndex},${tmpNowHorizontalIndex})`,
                         word: nowId.toString(),
                         sideLength: this._sideLength,
                         zindex: 6,
@@ -92,17 +103,17 @@ export default class BackgroundController {
                 nowId++;
             }
 
-
             // reset
             tmpNowHorizontalIndex = nowHorizontalIndex
 
             
-            for (let n=0;n<this._horizontalSquareNum + 2;n++){
+            for (let n=0;n<this._horizontalSquareNum;n++){
                 
                 const SquareObj:BGSquareLocationCalcurator = new BGSquareLocationCalcurator(
                     {
                         id: nowId,
                         colorName: colorObj.randomColorWord(),
+                        // word: `(slip: ${nowVerticalIndex},${tmpNowHorizontalIndex})`,
                         word: nowId.toString(),
                         sideLength: this._sideLength,
                         zindex: 6,
@@ -117,6 +128,7 @@ export default class BackgroundController {
                 tmpNowHorizontalIndex++;
                 nowId++;
             }
+
 
             nowVerticalIndex++;
 

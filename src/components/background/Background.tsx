@@ -23,7 +23,9 @@ const styles = (theme:Theme) :StyleRules => createStyles({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: blue[300],
-        overflow: "hidden"
+        position: "fixed",
+        top:0,
+        left:0
     }
 });
 
