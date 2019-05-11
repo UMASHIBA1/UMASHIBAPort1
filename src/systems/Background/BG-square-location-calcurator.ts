@@ -47,9 +47,6 @@ class BGSquareLocationCalcurator {
         const {X,Y}:LocationXY = this._centerLocation;
         const targetX: number = X + root2 * this._sideLength * this._horizontalIndex;
         const targetY: number = Y + root2 * this._sideLength * this._verticalIndex;
-        if(this._horizontalIndex===0 && this._verticalIndex===0){
-            console.log(`targetLocation: (${this._word},${targetX},${targetY})`);
-        };
         return {X: targetX,Y: targetY};
     }
 

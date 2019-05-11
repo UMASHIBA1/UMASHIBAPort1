@@ -51,12 +51,6 @@ export default class BackgroundController {
     private _calculateCenterLocation(): LocationXY{
         const centerX: number = this._windowWidth/2 - this._sideLength/2;
         const centerY: number = this._windowHeight/2 - this._sideLength/2;
-        console.group('calc');
-        console.log(`this.width: ${this._windowWidth}`);
-        console.log(`this.height: ${this._windowHeight}`);
-        console.log(`centerLocation: (${centerX},${centerY})`);
-        console.log(`sideLength: ${this._sideLength}`);
-        console.groupEnd();
         return {X:centerX, Y:centerY};
     }
 
@@ -73,9 +67,6 @@ export default class BackgroundController {
             X: centerLocation.X + this._sideLength * 1/Math.sqrt(2),
             Y: centerLocation.Y + this._sideLength * 1/Math.sqrt(2)
         }
-
-        console.log(`centerLocation: ${centerLocation.X},${centerLocation.Y}`);
-        console.log(`slipCenterLocation: ${slipCenterLocation.X}, ${slipCenterLocation.Y}`);
         
 
         for (let i=0;i<this._verticalSquareNum;i++){
@@ -88,7 +79,7 @@ export default class BackgroundController {
                         id: nowId,
                         colorName: colorObj.randomColorWord(),
                         // word: `(${nowVerticalIndex},${tmpNowHorizontalIndex})`,
-                        word: nowId.toString(),
+                        word:'',
                         sideLength: this._sideLength,
                         zindex: 6,
                         centerLocation: centerLocation,
@@ -114,7 +105,7 @@ export default class BackgroundController {
                         id: nowId,
                         colorName: colorObj.randomColorWord(),
                         // word: `(slip: ${nowVerticalIndex},${tmpNowHorizontalIndex})`,
-                        word: nowId.toString(),
+                        word: '',
                         sideLength: this._sideLength,
                         zindex: 6,
                         centerLocation: slipCenterLocation,

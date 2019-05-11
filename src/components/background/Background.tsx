@@ -6,7 +6,11 @@ import { blue } from '@material-ui/core/colors';
 import { connect } from 'react-redux';
 import { reduxState } from '../../types/redux/reducer';
 import { backgroundSquareProp } from '../../types/common/background-square';
-
+import { Dispatch } from 'redux';
+import { ChangeBackgroundSquareProps } from '../../redux/actions/action';
+import BackgroundController from '../../systems/Background/background-controller';
+import EventLitener from 'react-event-listener';
+import { ChangeBackgroundSquarePropsActionWithDispatch } from '../../types/redux/actions';
 interface ReduxStateProps {
     backgroundSquareProps: backgroundSquareProp[]
 }
@@ -14,6 +18,11 @@ interface ReduxStateProps {
 const mapStateToProps = (state: reduxState):ReduxStateProps => ({
         backgroundSquareProps: state.backgroundSquareProps.map((obj: backgroundSquareProp): backgroundSquareProp=>(Object.assign({},obj)))
 });
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return{
+        changeSquareProps: (payload: backgroundSquareProp[]) => (dispatch(ChangeBackgroundSquareProps(payload)))
+}};
 
 const styles = (theme:Theme) :StyleRules => createStyles({
     background:{
@@ -29,11 +38,29 @@ const styles = (theme:Theme) :StyleRules => createStyles({
     }
 });
 
-type Props = WithStyles<typeof styles> & ReduxStateProps;
+type Props = WithStyles<typeof styles> & ReduxStateProps & ReturnType<typeof mapDispatchToProps>;
 
 class Background extends React.Component <Props>{
-    
+
+    private resizeTimer: number;
+    constructor(props:Props){
+        super(props);
+        this.resizeTimer = 0;
+    }
+
+    calculateSquareProps(changeSquareProps: ChangeBackgroundSquarePropsActionWithDispatch){
+        if(this.resizeTimer !== 0){
+            window.clearTimeout(this.resizeTimer);
+        }
+        this.resizeTimer = window.setTimeout(()=>{
+            const backgroundObj: BackgroundController = new BackgroundController();
+            const status: backgroundSquareProp[] = backgroundObj.createBackgroundProps();
+            changeSquareProps(status);  
+        },200);
+    }
+
     render(){
+        const changeSquareProps: ChangeBackgroundSquarePropsActionWithDispatch = this.props.changeSquareProps;
         return(
             <div className={this.props.classes.background}>
             {
@@ -59,9 +86,10 @@ class Background extends React.Component <Props>{
                     )
                 })
             }
+            <EventLitener target='window' onResize={()=>(this.calculateSquareProps(changeSquareProps))}></EventLitener>
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Background));
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Background));
