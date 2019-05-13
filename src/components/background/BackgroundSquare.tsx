@@ -10,7 +10,7 @@ const tiltAngle = "45deg";
 const styles = (theme:Theme) :StyleRules => createStyles({
     paper: {
         position: "absolute",
-        transition: "1.2s",
+        transition: "1.6s",
         display: "flex",
         alignItems: "center",
         justifyContent: "center"

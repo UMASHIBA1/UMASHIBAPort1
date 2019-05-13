@@ -1,5 +1,5 @@
 import { LocationXY } from '../../types/systems/background/background-common';
-import { breakpointWidth } from '../../settings/common-setting';
+import { firstBreakpointWidth } from '../../settings/common-setting';
 import BGSquareLocationCalcurator from './BG-square-location-calcurator';
 import ColorWordController from '../Colors/color-word-controller';
 import { backgroundSquareProp } from '../../types/common/background-square';
@@ -16,7 +16,7 @@ export default class BackgroundController {
         this._windowHeight = window.innerHeight;
         this._windowWidth = window.innerWidth;
 
-        // キャッシュ (cash)
+        // 計算結果のキャッシュ/cash of calculate result
         this._horizontalSquareNum = this._judgeHorizontalSquareNum();
         this._squareWidthAndHeight = this._calculateSquareWidthAndHeight();
         this._verticalSquareNum = this._calculateVerticalSquareNum();
@@ -24,7 +24,7 @@ export default class BackgroundController {
     }
 
     private _judgeHorizontalSquareNum(): number{
-        if(this._windowWidth<breakpointWidth){
+        if(this._windowWidth<firstBreakpointWidth){
             return 3;
         }else{
             return 5;
@@ -78,7 +78,7 @@ export default class BackgroundController {
                     {
                         id: nowId,
                         colorName: colorObj.randomColorWord(),
-                        // word: `(${nowVerticalIndex},${tmpNowHorizontalIndex})`,
+                        // colorName: "red",
                         word:'',
                         sideLength: this._sideLength,
                         zindex: 6,
@@ -103,8 +103,8 @@ export default class BackgroundController {
                 const SquareObj:BGSquareLocationCalcurator = new BGSquareLocationCalcurator(
                     {
                         id: nowId,
+                        // colorName: "purple",
                         colorName: colorObj.randomColorWord(),
-                        // word: `(slip: ${nowVerticalIndex},${tmpNowHorizontalIndex})`,
                         word: '',
                         sideLength: this._sideLength,
                         zindex: 6,

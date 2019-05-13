@@ -1,4 +1,4 @@
-export type colorName = "red"        |
+export type colorName =  "red"        |
                          "pink"       |
                          "purple"     |
                          "deepPurple" |
@@ -17,3 +17,20 @@ export type colorName = "red"        |
                          "brown"      | 
                          "grey"       | 
                          "blueGrey";
+
+export type warmColorName = "red"|
+"pink"|
+"yellow"|
+"amber"|
+"orange"|
+"deepOrange";
+
+export type coldColorName = 
+"purple"|
+"deepPurple"|
+"indigo"|
+"blue"|
+"lightBlue"|
+"cyan"|
+"teal"|
+"blueGrey";

@@ -10,18 +10,18 @@ import { Dispatch } from 'redux';
 import { ChangeBackgroundSquareProps } from '../../redux/actions/action';
 import BackgroundController from '../../systems/Background/background-controller';
 import EventLitener from 'react-event-listener';
-import { ChangeBackgroundSquarePropsActionWithDispatch } from '../../types/redux/actions';
-interface ReduxStateProps {
+import { ChangeBackgroundSquarePropsActionWithDispatch, ChangeBackgroundSquarePropsAction } from '../../types/redux/actions';
+interface mapStateToPropsType {
     backgroundSquareProps: backgroundSquareProp[]
 }
 
-const mapStateToProps = (state: reduxState):ReduxStateProps => ({
+const mapStateToProps = (state: reduxState):mapStateToPropsType => ({
         backgroundSquareProps: state.backgroundSquareProps.map((obj: backgroundSquareProp): backgroundSquareProp=>(Object.assign({},obj)))
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return{
-        changeSquareProps: (payload: backgroundSquareProp[]) => (dispatch(ChangeBackgroundSquareProps(payload)))
+        changeSquareProps: (payload: ChangeBackgroundSquarePropsAction["payload"]) => (dispatch(ChangeBackgroundSquareProps(payload)))
 }};
 
 const styles = (theme:Theme) :StyleRules => createStyles({
@@ -38,21 +38,21 @@ const styles = (theme:Theme) :StyleRules => createStyles({
     }
 });
 
-type Props = WithStyles<typeof styles> & ReduxStateProps & ReturnType<typeof mapDispatchToProps>;
+type Props = WithStyles<typeof styles> & mapStateToPropsType & ReturnType<typeof mapDispatchToProps>;
 
 class Background extends React.Component <Props>{
 
-    private resizeTimer: number;
+    private _resizeTimer: number;
     constructor(props:Props){
         super(props);
-        this.resizeTimer = 0;
+        this._resizeTimer = 0;
     }
 
-    calculateSquareProps(changeSquareProps: ChangeBackgroundSquarePropsActionWithDispatch){
-        if(this.resizeTimer !== 0){
-            window.clearTimeout(this.resizeTimer);
+    calculateSquareProps(changeSquareProps: ChangeBackgroundSquarePropsActionWithDispatch): void{
+        if(this._resizeTimer !== 0){
+            window.clearTimeout(this._resizeTimer);
         }
-        this.resizeTimer = window.setTimeout(()=>{
+        this._resizeTimer = window.setTimeout(()=>{
             const backgroundObj: BackgroundController = new BackgroundController();
             const status: backgroundSquareProp[] = backgroundObj.createBackgroundProps();
             changeSquareProps(status);  

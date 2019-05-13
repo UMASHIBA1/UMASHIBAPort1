@@ -1,11 +1,14 @@
 import { rootReducerAction, reduxState } from '../../types/redux/reducer';
-import { CHANGE_BACKGROUND_SQUARE_PROPS, ADD_BACKGROUND_SQUARE_PROPS } from '../constant/action-types';
+import { CHANGE_BACKGROUND_SQUARE_PROPS, ADD_BACKGROUND_SQUARE_PROPS, CHANGE_ABOUT_ME_PROPS } from '../constant/action-types';
 import BackgroundController from '../../systems/Background/background-controller';
+import AboutMeCalcurator from '../../systems/MainMarks/aboutme-calculator';
 
 const backgroundObj: BackgroundController = new BackgroundController();
+const aboutMeObj: AboutMeCalcurator = new AboutMeCalcurator();
 
 const initialState: reduxState = {
-    backgroundSquareProps: backgroundObj.createBackgroundProps()
+    backgroundSquareProps: backgroundObj.createBackgroundProps(),
+    aboutMeProps: aboutMeObj.calculateTopLeftWidthHeight()
     // example of backgroundSquareProps
     // [
     //     {
@@ -44,6 +47,8 @@ const rootReducer = (state: reduxState = initialState,action: rootReducerAction)
             return Object.assign({},state,{backgroundSquareProps: action.payload});
         case ADD_BACKGROUND_SQUARE_PROPS:
             return Object.assign({},state,{backgroundSquareProps: Object.assign({},state.backgroundSquareProps,action.payload)});
+        case CHANGE_ABOUT_ME_PROPS:
+            return Object.assign({},state,{aboutMeProps: action.payload});
         default:
             return state;
         }

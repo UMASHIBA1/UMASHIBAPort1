@@ -47,6 +47,7 @@ export default class ColorObjController {
         };
     }
 
+
     specifiedColor(colorName: colorName):Color {
         return this._colors[colorName];
     }

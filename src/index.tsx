@@ -7,11 +7,15 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { CssBaseline } from '@material-ui/core';
+import AboutMe from './components/mainmarks/AboutMe';
 
 ReactDOM.render(
   <Provider store={store}>
     <CssBaseline>
-      <Background />
+      <React.Fragment>
+        <Background />
+        <AboutMe />
+      </React.Fragment>
     </CssBaseline>
   </Provider>,
   document.getElementById('root') as HTMLElement
