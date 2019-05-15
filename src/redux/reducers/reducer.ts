@@ -1,14 +1,18 @@
 import { rootReducerAction, reduxState } from '../../types/redux/reducer';
 import { CHANGE_BACKGROUND_SQUARE_PROPS, ADD_BACKGROUND_SQUARE_PROPS, CHANGE_ABOUT_ME_PROPS } from '../constant/action-types';
 import BackgroundController from '../../systems/Background/background-controller';
-import AboutMeCalcurator from '../../systems/MainMarks/aboutme-calculator';
+import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
 
 const backgroundObj: BackgroundController = new BackgroundController();
-const aboutMeObj: AboutMeCalcurator = new AboutMeCalcurator();
+const aboutMeObj: AboutMePropsCreater = new AboutMePropsCreater({
+    word: 'AboutMe',
+    borderColor: 'blue',
+    wordColor: 'grey'
+});
 
 const initialState: reduxState = {
     backgroundSquareProps: backgroundObj.createBackgroundProps(),
-    aboutMeProps: aboutMeObj.calculateTopLeftWidthHeight()
+    aboutMeProps: aboutMeObj.createProps()
     // example of backgroundSquareProps
     // [
     //     {

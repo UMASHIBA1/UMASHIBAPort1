@@ -1,120 +1,98 @@
 import * as React from 'react';
-import { Paper,Typography, Color } from '@material-ui/core';
-import {createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
-import { StyleRules } from '@material-ui/core/styles';
+import { Paper,Typography } from '@material-ui/core';
+import {withStyles } from '@material-ui/core/styles';
 import { reduxState } from '../../types/redux/reducer';
 import { Dispatch } from 'redux';
 import { ChangeAboutMeProps } from '../../redux/actions/action';
 import { ChangeAboutMePropsAction, ChangeAboutMePropsActionWithDispatch } from '../../types/redux/actions';
 import { connect } from 'react-redux';
-import { MainMarksProps } from '../../types/common/mainmarks';
+import { noCalculateMainMarkProps, mapStateToPropsTypesForMainMarks } from '../../types/common/mainmarks';
 import EventListener from 'react-event-listener';
-import AboutMeCalcurator from '../../systems/MainMarks/aboutme-calculator';
-import ColorObjController from '../../systems/Colors/color-obj-controller';
+import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
+import MainMarkMeta, { mainMarkStyles } from './MainMarkMeta';
+import {MainMarkMetaType} from '../../types/common/mainmarks';
 
 
-interface mapStateToPropsType {
-    aboutMeProps: MainMarksProps;
-}
-
-const mapStateToProps = (state:reduxState):mapStateToPropsType => ({
-    aboutMeProps:  Object.assign({},state.aboutMeProps)
+const mapStateToProps = (state:reduxState):mapStateToPropsTypesForMainMarks => ({
+    mainMarkProps:  Object.assign({},state.aboutMeProps)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     changeAboutMeProps: (payload: ChangeAboutMePropsAction["payload"]) => (dispatch(ChangeAboutMeProps(payload)))
 })
 
-const tiltAngle = "45deg";
 
-const colorObj:ColorObjController = new ColorObjController();
+type Props = ReturnType<typeof mapDispatchToProps> & MainMarkMetaType;
 
-const aboutMeColor = colorObj.specifiedColor("lightBlue");
+class AboutMe extends MainMarkMeta<Props>{
 
-const styles = (theme:Theme) :StyleRules => createStyles({
-    paper: {
-        transition: "1.2s",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    outline: {
-        zIndex: 100,
-        position: "absolute",
-        transform: `rotate(${tiltAngle})`,
-        backgroundColor: aboutMeColor[200]
-    },
-    second: {
-        backgroundColor: aboutMeColor[500]
-    },
-    third: {
-        backgroundColor: aboutMeColor[200]
-    },
-    centerWord: {
-        transform: `rotate(-${tiltAngle})`,
-    }
-});
-
-
-
-type Props = WithStyles<typeof styles> & mapStateToPropsType & ReturnType<typeof mapDispatchToProps>;
-
-
-class AboutMe extends React.Component <Props>{
-    private _resizeTimer: number;
-    constructor(props:Props){
-        super(props);
-        this._resizeTimer = 0;
-    }
-
-    _changeTopLeftWidthHeight(changeAboutMeProps:ChangeAboutMePropsActionWithDispatch): void{
+    _changeTopLeftWidthHeight(nowState: noCalculateMainMarkProps,changeAboutMeProps:ChangeAboutMePropsActionWithDispatch): void{
         if(this._resizeTimer !== 0){
             window.clearTimeout(this._resizeTimer);
         }
         this._resizeTimer = window.setTimeout(()=>{
-            const calcObj = new AboutMeCalcurator();
-            const topLeftWidthHeight = calcObj.calculateTopLeftWidthHeight();
+            const calcObj = new AboutMePropsCreater(nowState);
+            const topLeftWidthHeight = calcObj.createProps();
             changeAboutMeProps(topLeftWidthHeight);
-        },200);
+        },this._resizeWaitTime);
     }
 
     render(){
+        const {
+            top,
+            left,
+            widthHeight,
+            secondWidthHeight,
+            thirdWidthHeight,
+            borderWidth,
+            word,
+            wordColor,
+            borderColor
+        } = this.props.mainMarkProps;
         return (
             <React.Fragment>
-                <Paper className={`${this.props.classes.outline} ${this.props.classes.paper}`}
+                <Paper elevation={24} className={`${this.props.classes.outline} ${this.props.classes.paper}`}
                 style={{
-                    top: this.props.aboutMeProps.top,
-                    left: this.props.aboutMeProps.left,
-                    width: this.props.aboutMeProps.widthHeight,
-                    height: this.props.aboutMeProps.widthHeight,
+                    top,
+                    left,
+                    width: widthHeight,
+                    height: widthHeight,
+                    borderWidth,
+                    borderColor: this._colorObj.specifiedColor(borderColor)[900],
                 }}
                 >
                     <Paper className={`${this.props.classes.paper} ${this.props.classes.second}`}
                     style={{
-                        top: this.props.aboutMeProps.top,
-                        left: this.props.aboutMeProps.left,
-                        width: this.props.aboutMeProps.widthHeight - 30,
-                        height: this.props.aboutMeProps.widthHeight - 30
+                        top,
+                        left,
+                        width: secondWidthHeight,
+                        height: secondWidthHeight,
+                        borderWidth,
+                        borderColor: this._colorObj.specifiedColor(borderColor)[500]
                     }}
                     >
                         <Paper className={`${this.props.classes.paper} ${this.props.classes.third}`}
                         style={{
-                            top: this.props.aboutMeProps.top,
-                            left: this.props.aboutMeProps.left,
-                            width: this.props.aboutMeProps.widthHeight - 60,
-                            height: this.props.aboutMeProps.widthHeight - 60
+                            top,
+                            left,
+                            width: thirdWidthHeight,
+                            height: thirdWidthHeight,
+                            borderWidth,
+                            borderColor: this._colorObj.specifiedColor(borderColor)[300]
                         }}>
-                            <Typography color={'error'} align={'center'} variant={'h4'} className={this.props.classes.centerWord}>
-                                AboutMe
+                            <Typography color={'error'} align={'center'} variant={this.props.mainMarkProps.fontVariant} className={this.props.classes.centerWord} style={{
+                                color: wordColor
+                            }}>
+                                {word}
                             </Typography>
                         </Paper>
                     </Paper>
                 </Paper>
-                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight(this.props.changeAboutMeProps))}></EventListener>
+                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight({word,wordColor,borderColor},this.props.changeAboutMeProps))}></EventListener>
             </React.Fragment>
         );
     }
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(AboutMe));
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(mainMarkStyles)(AboutMe));
