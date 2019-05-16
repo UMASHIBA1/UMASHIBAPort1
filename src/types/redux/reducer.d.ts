@@ -3,12 +3,13 @@ import {
     ChangeBackgroundSquarePropsAction
 } from './actions'
 import { backgroundSquareProp } from '../common/background-square'; 
-import MainMarkProps, { MainMarksProps } from '../common/mainmarks';
+import MainMarkProps from '../common/mainmarks';
 
 export interface reduxState {
     backgroundSquareProps: backgroundSquareProp[];
-    aboutMeProps: MainMarksProps;
-    createdProps: MainMarkProps;
+    aboutMeProps:          MainMarkProps;
+    createdProps:          MainMarkProps;
+    toolsProps:            MainMarkProps;
 }
 
 export type rootReducerAction = AddBackgroundSquarePropsAction | 

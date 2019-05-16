@@ -2,11 +2,13 @@ import { rootReducerAction, reduxState } from '../../types/redux/reducer';
 import { CHANGE_BACKGROUND_SQUARE_PROPS,
     ADD_BACKGROUND_SQUARE_PROPS,
     CHANGE_ABOUT_ME_PROPS,
-    CHANGE_CREATED_PROPS
+    CHANGE_CREATED_PROPS,
+    CHANGE_TOOLS_PROPS
 } from '../constant/action-types';
 import BackgroundController from '../../systems/Background/background-controller';
 import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
 import CreatedPropsCreater from '../../systems/MainMarks/created-props-creater';
+import ToolsPropsCreater from '../../systems/MainMarks/tools-props-creater';
 
 const backgroundObj: BackgroundController = new BackgroundController();
 const aboutMeObj: AboutMePropsCreater = new AboutMePropsCreater({
@@ -19,14 +21,21 @@ const createdObj: CreatedPropsCreater = new CreatedPropsCreater({
     borderColor: 'red',
     wordColor: 'grey',
 });
+const toolsObj: ToolsPropsCreater = new ToolsPropsCreater({
+    word: 'Tools',
+    borderColor: 'green',
+    wordColor: 'grey'
+})
 const backgroundSquareProps = backgroundObj.createBackgroundProps();
 const aboutMeProps = aboutMeObj.createProps();
 const createdProps = createdObj.createProps();
+const toolsProps = toolsObj.createProps();
 
 const initialState: reduxState = {
     backgroundSquareProps,
     aboutMeProps,
-    createdProps
+    createdProps,
+    toolsProps
     // example of backgroundSquareProps
     // [
     //     {
@@ -69,6 +78,8 @@ const rootReducer = (state: reduxState = initialState,action: rootReducerAction)
             return Object.assign({},state,{aboutMeProps: action.payload});
         case CHANGE_CREATED_PROPS:
             return Object.assign({},state,{createdProps: action.payload});
+        case CHANGE_TOOLS_PROPS:
+            return Object.assign({},state,{toolsProps: action.payload});
         default:
             return state;
         }

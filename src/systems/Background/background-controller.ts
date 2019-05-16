@@ -22,7 +22,7 @@ export default class BackgroundController {
         this._horizontalSquareNum = this._judgeHorizontalSquareNum();
         this._squareWidthAndHeight = this._calculateSquareWidthAndHeight();
         this._verticalSquareNum = this._calculateVerticalSquareNum();
-        this._sideLength = this._calculateSquareSideLength();
+        this._sideLength = this.calculateSquareSideLength();
     }
 
     private _judgeHorizontalSquareNum(): number{
@@ -42,7 +42,7 @@ export default class BackgroundController {
         return Math.ceil(this._windowHeight/squareHeight)+1;
     }
 
-    private _calculateSquareSideLength(): number{
+    public calculateSquareSideLength(): number{
         const squareWidth: number = this._squareWidthAndHeight;
         const root2: number = Math.sqrt(2);
         return squareWidth/root2;
@@ -50,7 +50,7 @@ export default class BackgroundController {
 
     
     // squareの真ん中がちょうど画面の真ん中に来るようなtopとleftの位置を計算します。
-    private _calculateCenterLocation(): LocationXY{
+    public calculateCenterLocation(): LocationXY{
         const centerX: number = this._windowWidth/2 - this._sideLength/2;
         const centerY: number = this._windowHeight/2 - this._sideLength/2;
         return {X:centerX, Y:centerY};
@@ -60,7 +60,7 @@ export default class BackgroundController {
 
         const backgroundSquareProps: backgroundSquareProp[] = [];
         const colorObj: ColorWordController = new ColorWordController();
-        const centerLocation: LocationXY = this._calculateCenterLocation();
+        const centerLocation: LocationXY = this.calculateCenterLocation();
         let nowId: number = 1;
         let nowHorizontalIndex: number = -Math.floor(this._horizontalSquareNum/2);
         let nowVerticalIndex: number = -Math.floor(this._verticalSquareNum/2);
