@@ -4,6 +4,7 @@ import MainMarksCommonPropsCreater from "./mainmarks-props-creater";
 import { allCommonPropTypes, topLeft } from "../../types/systems/mainmarks/mainmarks-props-creater";
 import { LocationXY } from '../../types/systems/background/background-common';
 import { underBreakPointWidth, underBreakPointTopMargin, underBreakPointBetweenMargin } from "../../settings/mainmarks/mainmarks";
+import BackgroundController from "../Background/background-controller";
 
 
 export default class CreatedPropsCreater extends MainMarksCommonPropsCreater {
@@ -11,30 +12,6 @@ export default class CreatedPropsCreater extends MainMarksCommonPropsCreater {
     constructor(props:noCalculateMainMarkProps){
         super();
         this.props = props;
-    }
-
-    private _calculateBackgroundCenterLocation(backgroundSideLength:number,windowWidth:number,windowHeight:number): LocationXY{
-        const centerX: number = windowWidth/2 - backgroundSideLength/2;
-        const centerY: number = windowHeight/2 - backgroundSideLength/2;
-        return {X:centerX, Y:centerY};
-    }
-
-    private _judgeHorizontalSquareNum(windowWidth:number): number{
-        if(windowWidth<firstBreakpointWidth){
-            return 3;
-        }else{
-            return 5;
-        }
-    }
-
-    private _calculateSquareWidthAndHeight(windowWidth:number): number{
-        return windowWidth/(this._judgeHorizontalSquareNum(windowWidth) - 1);
-    }
-
-    private _calculateSquareSideLength(windowWidth:number): number{
-        const squareWidth: number = this._calculateSquareWidthAndHeight(windowWidth);
-        const root2: number = Math.sqrt(2);
-        return squareWidth/root2;
     }
 
     private _calculateTopAndLeft(widthHeight: MainMarksProps["widthHeight"],windowWidth:number,windowHeight:number){
@@ -46,10 +23,11 @@ export default class CreatedPropsCreater extends MainMarksCommonPropsCreater {
             };
         }
         else if(windowWidth > secondBreakpointWidth){
+            const backgroundObj = new BackgroundController();
             const YIndex = -1;
             const XIndex = -1;
-            const backgroundSideLength = this._calculateSquareSideLength(windowWidth);
-            const {X,Y} = this._calculateBackgroundCenterLocation(backgroundSideLength,windowWidth,windowHeight);
+            const backgroundSideLength = backgroundObj.calculateSquareSideLength();
+            const {X,Y} = backgroundObj.calculateCenterLocation();
             const diffentOfBackgroundAndMark = backgroundSideLength - widthHeight;
             return{
                 top: Y + (root2 * backgroundSideLength) * YIndex / 2 + diffentOfBackgroundAndMark/2,
