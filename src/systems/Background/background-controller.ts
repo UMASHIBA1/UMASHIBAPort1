@@ -7,6 +7,7 @@ export default class BackgroundController {
 
     private  _windowWidth: number;
     private  _windowHeight: number;
+    private _zIndex: number;
     private _horizontalSquareNum: number;
     private _squareWidthAndHeight: number;
     private _verticalSquareNum: number;
@@ -15,6 +16,7 @@ export default class BackgroundController {
     constructor(){
         this._windowHeight = window.innerHeight;
         this._windowWidth = window.innerWidth;
+        this._zIndex = 10;
 
         // 計算結果のキャッシュ/cash of calculate result
         this._horizontalSquareNum = this._judgeHorizontalSquareNum();
@@ -43,7 +45,7 @@ export default class BackgroundController {
     private _calculateSquareSideLength(): number{
         const squareWidth: number = this._squareWidthAndHeight;
         const root2: number = Math.sqrt(2);
-        return squareWidth*(1/root2);
+        return squareWidth/root2;
     }
 
     
@@ -78,10 +80,9 @@ export default class BackgroundController {
                     {
                         id: nowId,
                         colorName: colorObj.randomColorWord(),
-                        // colorName: "red",
                         word:'',
                         sideLength: this._sideLength,
-                        zindex: 6,
+                        zindex: this._zIndex,
                         centerLocation: centerLocation,
                         horizontalIndex: tmpNowHorizontalIndex,
                         verticalIndex: nowVerticalIndex
@@ -103,11 +104,10 @@ export default class BackgroundController {
                 const SquareObj:BGSquareLocationCalcurator = new BGSquareLocationCalcurator(
                     {
                         id: nowId,
-                        // colorName: "purple",
                         colorName: colorObj.randomColorWord(),
                         word: '',
                         sideLength: this._sideLength,
-                        zindex: 6,
+                        zindex: this._zIndex,
                         centerLocation: slipCenterLocation,
                         horizontalIndex: tmpNowHorizontalIndex,
                         verticalIndex: nowVerticalIndex

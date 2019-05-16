@@ -1,5 +1,5 @@
 import { colorName } from '../../types/systems/colors/color-word-controller';
-import { TypographyProps } from '@material-ui/core/Typography';
+import { mapStateToPropsMainMarksType } from '../redux/map-state-to-props';
 
 
 
@@ -24,10 +24,6 @@ type MainMarkProps = noCalculateMainMarkProps & hasCalculateMainMarksProps;
 export default MainMarkProps;
 
 // under here is for mapStateToProps
-export interface mapStateToPropsTypesForMainMarks {
-    mainMarkProps: MainMarksProps
-}
-
-export type MainMarkMetaType = WithStyles<typeof mainMarkStyles> & mapStateToPropsTypesForMainMarks;
 
 
+export type MainMarkMetaType = WithStyles<typeof mainMarkStyles> & mapStateToPropsMainMarksType;

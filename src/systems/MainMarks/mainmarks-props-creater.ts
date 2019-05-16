@@ -1,21 +1,16 @@
 import { firstBreakpointWidth, secondBreakpointWidth } from "../../settings/common-setting";
-import { noCalculateMainMarkProps } from "../../types/common/mainmarks";
 import { allCommonPropTypes } from "../../types/systems/mainmarks/mainmarks-props-creater";
+import { upperBreakPointWidthPercent,middleBreakPointWidthPercent,underBreakPointWidth } from '../../settings/mainmarks/mainmarks';
 
 export default class MainMarksCommonPropsCreater {
-    private _upperBreakpointWidthPercent: number;
-    private _middleBreakpointWidthPercent: number;
-    private _underBreakpointWidthPercent: number;
 
-    constructor(){
-        this._upperBreakpointWidthPercent = 0.25;
-        this._middleBreakpointWidthPercent = 0.35;
-        this._underBreakpointWidthPercent = 0.40;
-    }
-
-    protected _calculateCommonProps(windowWidth: number): allCommonPropTypes{
+    protected _calculateCommonProps(windowWidth: number,windowHeight: number): allCommonPropTypes{
+        const root2 = Math.sqrt(2);
         if(windowWidth > firstBreakpointWidth){
-            const widthHeight = windowWidth * this._upperBreakpointWidthPercent;
+            let widthHeight = windowWidth * upperBreakPointWidthPercent;
+            if(widthHeight* root2 > windowHeight/2){
+                widthHeight = (windowHeight/2)/root2 - 10;
+            }
             return{
                 widthHeight,
                 secondWidthHeight: widthHeight - 30,
@@ -25,7 +20,7 @@ export default class MainMarksCommonPropsCreater {
             };
         }
         else if(windowWidth > secondBreakpointWidth){
-            const widthHeight = windowWidth * this._middleBreakpointWidthPercent;
+            const widthHeight: number = windowWidth * middleBreakPointWidthPercent;
             return{
                 widthHeight,
                 secondWidthHeight: widthHeight - 30,
@@ -34,7 +29,7 @@ export default class MainMarksCommonPropsCreater {
                 fontVariant: "h4"
             };
         }else{
-            const widthHeight = windowWidth * this._underBreakpointWidthPercent;
+            const widthHeight:number = underBreakPointWidth;
             return{
                 widthHeight,
                 secondWidthHeight: widthHeight - 20,

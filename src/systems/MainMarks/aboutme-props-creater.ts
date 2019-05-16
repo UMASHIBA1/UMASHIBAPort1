@@ -2,6 +2,7 @@ import { firstBreakpointWidth, secondBreakpointWidth } from "../../settings/comm
 import MainMarksProps, { noCalculateMainMarkProps } from "../../types/common/mainmarks";
 import MainMarksCommonPropsCreater from "./mainmarks-props-creater";
 import { allCommonPropTypes, topLeft } from "../../types/systems/mainmarks/mainmarks-props-creater";
+import { underBreakPointWidth, underBreakPointTopMargin, underBreakPointBetweenMargin } from "../../settings/mainmarks/mainmarks";
 
 export default class AboutMePropsCreater extends MainMarksCommonPropsCreater {
     private props: noCalculateMainMarkProps;
@@ -24,8 +25,11 @@ export default class AboutMePropsCreater extends MainMarksCommonPropsCreater {
                 left: windowWidth/2 - widthHeight/2,
             };
         }else{
+            const topMargin = underBreakPointTopMargin;
+            const betweenMargin = underBreakPointBetweenMargin;
+            const verticalIndex = 1;
             return{
-                top: windowHeight/5 - widthHeight/2,
+                top: topMargin + underBreakPointWidth * (verticalIndex - 1) + betweenMargin * (verticalIndex-1),
                 left: windowWidth/2 - widthHeight/2,
             };
         }
@@ -35,7 +39,7 @@ export default class AboutMePropsCreater extends MainMarksCommonPropsCreater {
     createProps(){
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
-        const commonProps:allCommonPropTypes = this._calculateCommonProps(windowWidth);
+        const commonProps:allCommonPropTypes = this._calculateCommonProps(windowWidth,windowHeight);
         const topLeft:topLeft = this._calculateTopAndLeft(commonProps.widthHeight,windowWidth,windowHeight);
         return Object.assign(commonProps,topLeft,this.props);
     }

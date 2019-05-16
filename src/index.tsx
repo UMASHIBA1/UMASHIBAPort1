@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { CssBaseline } from '@material-ui/core';
 import AboutMe from './components/mainmarks/AboutMe';
+import Created from './components/mainmarks/Created';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <React.Fragment>
         <Background />
         <AboutMe />
+        <Created />
       </React.Fragment>
     </CssBaseline>
   </Provider>,

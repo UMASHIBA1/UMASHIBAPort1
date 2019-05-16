@@ -3,38 +3,37 @@ import { Paper,Typography } from '@material-ui/core';
 import {withStyles } from '@material-ui/core/styles';
 import { reduxState } from '../../types/redux/reducer';
 import { Dispatch } from 'redux';
-import { ChangeAboutMeProps } from '../../redux/actions/action';
-import { ChangeAboutMePropsAction, ChangeAboutMePropsActionWithDispatch } from '../../types/redux/actions';
+import { ChangeCreatedProps } from '../../redux/actions/action';
+import { ChangeCreatedPropsAction, ChangeCreatedPropsActionWithDispatch } from '../../types/redux/actions';
 import { connect } from 'react-redux';
 import { noCalculateMainMarkProps} from '../../types/common/mainmarks';
 import EventListener from 'react-event-listener';
-import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
 import MainMarkMeta, { mainMarkStyles } from './MainMarkMeta';
 import {MainMarkMetaType} from '../../types/common/mainmarks';
+import CreatedPropsCreater from '../../systems/MainMarks/created-props-creater';
 import { mapStateToPropsMainMarksType } from '../../types/redux/map-state-to-props';
 
-
-const mapStateToProps = (state:reduxState):mapStateToPropsMainMarksType => ({
-    mainMarkProps:  Object.assign({},state.aboutMeProps)
+const mapStateToProps = (state:reduxState): mapStateToPropsMainMarksType => ({
+    mainMarkProps:  Object.assign({},state.createdProps)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    changeAboutMeProps: (payload: ChangeAboutMePropsAction["payload"]) => (dispatch(ChangeAboutMeProps(payload)))
+    changeCreatedProps: (payload: ChangeCreatedPropsAction["payload"]) => (dispatch(ChangeCreatedProps(payload)))
 })
 
 
 type Props = ReturnType<typeof mapDispatchToProps> & MainMarkMetaType;
 
-class AboutMe extends MainMarkMeta<Props>{
+class Created extends MainMarkMeta<Props>{
 
-    _changeTopLeftWidthHeight(nowState: noCalculateMainMarkProps,changeAboutMeProps:ChangeAboutMePropsActionWithDispatch): void{
+    _changeTopLeftWidthHeight(nowState: noCalculateMainMarkProps,changeCreatedProps:ChangeCreatedPropsActionWithDispatch): void{
         if(this._resizeTimer !== 0){
             window.clearTimeout(this._resizeTimer);
         }
         this._resizeTimer = window.setTimeout(()=>{
-            const calcObj = new AboutMePropsCreater(nowState);
+            const calcObj = new CreatedPropsCreater(nowState);
             const topLeftWidthHeight = calcObj.createProps();
-            changeAboutMeProps(topLeftWidthHeight);
+            changeCreatedProps(topLeftWidthHeight);
         },this._resizeWaitTime);
     }
 
@@ -89,11 +88,11 @@ class AboutMe extends MainMarkMeta<Props>{
                         </Paper>
                     </Paper>
                 </Paper>
-                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight({word,wordColor,borderColor},this.props.changeAboutMeProps))}></EventListener>
+                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight({word,wordColor,borderColor},this.props.changeCreatedProps))}></EventListener>
             </React.Fragment>
         );
     }
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(withStyles(mainMarkStyles)(AboutMe));
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(mainMarkStyles)(Created));
