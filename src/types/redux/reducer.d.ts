@@ -10,6 +10,7 @@ export interface reduxState {
     aboutMeProps:          MainMarkProps;
     createdProps:          MainMarkProps;
     toolsProps:            MainMarkProps;
+    contactProps:          MainMarkProps;
 }
 
 export type rootReducerAction = AddBackgroundSquarePropsAction | 

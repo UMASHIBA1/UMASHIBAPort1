@@ -1,6 +1,18 @@
-import { CHANGE_BACKGROUND_SQUARE_PROPS, ADD_BACKGROUND_SQUARE_PROPS, CHANGE_ABOUT_ME_PROPS, CHANGE_CREATED_PROPS, CHANGE_TOOLS_PROPS } from '../constant/action-types';
+import {
+    CHANGE_BACKGROUND_SQUARE_PROPS, 
+    ADD_BACKGROUND_SQUARE_PROPS,
+    CHANGE_ABOUT_ME_PROPS,
+    CHANGE_CREATED_PROPS,
+    CHANGE_TOOLS_PROPS, 
+    CHANGE_CONTACT_PROPS} from '../constant/action-types';
 import { backgroundSquareProp } from '../../types/common/background-square';
-import { AddBackgroundSquarePropsAction, ChangeBackgroundSquarePropsAction, ChangeAboutMePropsAction, ChangeCreatedPropsAction, ChangeToolsPropsAction } from '../../types/redux/actions';
+import { 
+    AddBackgroundSquarePropsAction,
+    ChangeBackgroundSquarePropsAction,
+    ChangeAboutMePropsAction,
+    ChangeCreatedPropsAction,
+    ChangeToolsPropsAction, 
+    ChangeContactPropsAction} from '../../types/redux/actions';
 import MainMarksProps from '../../types/common/mainmarks';
 
 export const ChangeBackgroundSquareProps = (payload: backgroundSquareProp[]):ChangeBackgroundSquarePropsAction => {
@@ -21,4 +33,8 @@ export const ChangeCreatedProps = (payload:MainMarksProps): ChangeCreatedPropsAc
 
 export const ChangeToolsProps = (payload:MainMarksProps): ChangeToolsPropsAction => {
     return {type: CHANGE_TOOLS_PROPS,payload};
+}
+
+export const ChangeContactProps = (payload:MainMarksProps): ChangeContactPropsAction => {
+    return {type: CHANGE_CONTACT_PROPS,payload};
 }

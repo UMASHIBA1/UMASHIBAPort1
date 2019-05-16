@@ -10,6 +10,7 @@ import { CssBaseline } from '@material-ui/core';
 import AboutMe from './components/mainmarks/AboutMe';
 import Created from './components/mainmarks/Created';
 import Tools from './components/mainmarks/Tools';
+import Contact from './components/mainmarks/Contact';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -19,6 +20,7 @@ ReactDOM.render(
         <AboutMe />
         <Created />
         <Tools />
+        <Contact />
       </React.Fragment>
     </CssBaseline>
   </Provider>,
