@@ -26,10 +26,11 @@ export default class BackgroundController {
     }
 
     private _judgeHorizontalSquareNum(): number{
-        if(this._windowWidth<firstBreakpointWidth){
-            return 3;
-        }else{
+        if(this._windowWidth > firstBreakpointWidth){
             return 5;
+        }        
+        else{
+            return 3;
         }
     }
 

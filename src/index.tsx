@@ -7,20 +7,14 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { CssBaseline } from '@material-ui/core';
-import AboutMe from './components/mainmarks/AboutMe';
-import Created from './components/mainmarks/Created';
-import Tools from './components/mainmarks/Tools';
-import Contact from './components/mainmarks/Contact';
+import MainMarkLayer from './components/mainmarks/MainMarkLayer';
 
 ReactDOM.render(
   <Provider store={store}>
     <CssBaseline>
       <React.Fragment>
+        <MainMarkLayer />
         <Background />
-        <AboutMe />
-        <Created />
-        <Tools />
-        <Contact />
       </React.Fragment>
     </CssBaseline>
   </Provider>,

@@ -11,7 +11,6 @@ import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
 import CreatedPropsCreater from '../../systems/MainMarks/created-props-creater';
 import ToolsPropsCreater from '../../systems/MainMarks/tools-props-creater';
 import ContactPropsCreater from '../../systems/MainMarks/contact-props-creater';
-import Contact from '../../components/mainmarks/Contact';
 
 const backgroundObj: BackgroundController = new BackgroundController();
 const aboutMeObj: AboutMePropsCreater = new AboutMePropsCreater({
