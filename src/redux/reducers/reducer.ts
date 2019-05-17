@@ -16,22 +16,26 @@ const backgroundObj: BackgroundController = new BackgroundController();
 const aboutMeObj: AboutMePropsCreater = new AboutMePropsCreater({
     word: 'AboutMe',
     borderColor: 'blue',
-    wordColor: 'grey'
+    wordColor: 'grey',
+    rotate: 45
 });
 const createdObj: CreatedPropsCreater = new CreatedPropsCreater({
     word: 'Created',
     borderColor: 'red',
     wordColor: 'grey',
+    rotate: 45
 });
 const toolsObj: ToolsPropsCreater = new ToolsPropsCreater({
     word: 'Tools',
     borderColor: 'green',
-    wordColor: 'grey'
+    wordColor: 'grey',
+    rotate: 45
 });
 const contactObj: ContactPropsCreater = new ContactPropsCreater({
     word: 'Contact',
     borderColor: 'purple',
-    wordColor: 'grey'
+    wordColor: 'grey',
+    rotate: 45
 });
 const backgroundSquareProps = backgroundObj.createBackgroundProps();
 const aboutMeProps = aboutMeObj.createProps();

@@ -7,6 +7,7 @@ export interface noCalculateMainMarkProps {
     borderColor: colorName;
     word: string;
     wordColor: colorName;
+    rotate: number;
 };
 
 export interface hasCalculateMainMarksProps {

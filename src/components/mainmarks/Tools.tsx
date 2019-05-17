@@ -4,7 +4,8 @@ import {withStyles } from '@material-ui/core/styles';
 import { reduxState } from '../../types/redux/reducer';
 import { Dispatch } from 'redux';
 import { ChangeToolsProps } from '../../redux/actions/action';
-import { ChangeToolsPropsAction, ChangeToolsPropsActionWithDispatch } from '../../types/redux/actions';
+import { ChangeToolsPropsAction, } from '../../types/redux/actions';
+import { ChangeToolsPropsActionWithDispatch } from '../../types/redux/map-dispatch-to-props';
 import { connect } from 'react-redux';
 import { noCalculateMainMarkProps} from '../../types/common/mainmarks';
 import EventListener from 'react-event-listener';
@@ -47,7 +48,8 @@ class Tools extends MainMarkMeta<Props>{
             borderWidth,
             word,
             wordColor,
-            borderColor
+            borderColor,
+            rotate
         } = this.props.mainMarkProps;
         return (
             <React.Fragment>
@@ -59,6 +61,7 @@ class Tools extends MainMarkMeta<Props>{
                     height: widthHeight,
                     borderWidth,
                     borderColor: this._colorObj.specifiedColor(borderColor)[300],
+                    transform: `rotate(${rotate}deg)`
                 }}
                 >
                     <Paper className={`${this.props.classes.paper} ${this.props.classes.second}`}
@@ -81,14 +84,15 @@ class Tools extends MainMarkMeta<Props>{
                             borderColor: this._colorObj.specifiedColor(borderColor)[900]
                         }}>
                             <Typography color={'error'} align={'center'} variant={this.props.mainMarkProps.fontVariant} className={this.props.classes.centerWord} style={{
-                                color: wordColor
+                                color: wordColor,
+                                transform: `rotate(-${rotate}deg)`
                             }}>
                                 {word}
                             </Typography>
                         </Paper>
                     </Paper>
                 </Paper>
-                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight({word,wordColor,borderColor},this.props.changeToolsProps))}></EventListener>
+                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight({word,wordColor,borderColor,rotate},this.props.changeToolsProps))}></EventListener>
             </React.Fragment>
         );
     }

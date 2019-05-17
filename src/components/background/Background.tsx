@@ -10,7 +10,8 @@ import { Dispatch } from 'redux';
 import { ChangeBackgroundSquareProps } from '../../redux/actions/action';
 import BackgroundController from '../../systems/Background/background-controller';
 import EventLitener from 'react-event-listener';
-import { ChangeBackgroundSquarePropsActionWithDispatch, ChangeBackgroundSquarePropsAction } from '../../types/redux/actions';
+import { ChangeBackgroundSquarePropsAction } from '../../types/redux/actions';
+import { ChangeBackgroundSquarePropsActionWithDispatch,} from '../../types/redux/map-dispatch-to-props';
 interface mapStateToPropsType {
     backgroundSquareProps: backgroundSquareProp[]
 }
