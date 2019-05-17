@@ -12,30 +12,38 @@ import CreatedPropsCreater from '../../systems/MainMarks/created-props-creater';
 import ToolsPropsCreater from '../../systems/MainMarks/tools-props-creater';
 import ContactPropsCreater from '../../systems/MainMarks/contact-props-creater';
 
+const defaultRotate = 45;
+const defaultZIndex = 100;
+const defaultWordColor = 'grey'
+
 const backgroundObj: BackgroundController = new BackgroundController();
 const aboutMeObj: AboutMePropsCreater = new AboutMePropsCreater({
     word: 'AboutMe',
     borderColor: 'blue',
-    wordColor: 'grey',
-    rotate: 45
+    wordColor: defaultWordColor,
+    rotate: defaultRotate,
+    zIndex: defaultZIndex
 });
 const createdObj: CreatedPropsCreater = new CreatedPropsCreater({
     word: 'Created',
     borderColor: 'red',
-    wordColor: 'grey',
-    rotate: 45
+    wordColor: defaultWordColor,
+    rotate: defaultRotate,
+    zIndex: defaultZIndex
 });
 const toolsObj: ToolsPropsCreater = new ToolsPropsCreater({
     word: 'Tools',
     borderColor: 'green',
-    wordColor: 'grey',
-    rotate: 45
+    wordColor: defaultWordColor,
+    rotate: defaultRotate,
+    zIndex: defaultZIndex
 });
 const contactObj: ContactPropsCreater = new ContactPropsCreater({
     word: 'Contact',
     borderColor: 'purple',
-    wordColor: 'grey',
-    rotate: 45
+    wordColor: defaultWordColor,
+    rotate: defaultRotate,
+    zIndex: defaultZIndex
 });
 const backgroundSquareProps = backgroundObj.createBackgroundProps();
 const aboutMeProps = aboutMeObj.createProps();

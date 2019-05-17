@@ -8,6 +8,7 @@ export interface noCalculateMainMarkProps {
     word: string;
     wordColor: colorName;
     rotate: number;
+    zIndex: number;
 };
 
 export interface hasCalculateMainMarksProps {
@@ -23,8 +24,3 @@ export interface hasCalculateMainMarksProps {
 type MainMarkProps = noCalculateMainMarkProps & hasCalculateMainMarksProps;
 
 export default MainMarkProps;
-
-// under here is for mapStateToProps
-
-
-export type MainMarkMetaType = WithStyles<typeof mainMarkStyles> & mapStateToPropsMainMarksType;

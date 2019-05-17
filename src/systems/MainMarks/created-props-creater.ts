@@ -2,7 +2,6 @@ import { firstBreakpointWidth, secondBreakpointWidth } from "../../settings/comm
 import MainMarksProps, { noCalculateMainMarkProps } from "../../types/common/mainmarks";
 import MainMarksCommonPropsCreater from "./mainmarks-props-creater";
 import { allCommonPropTypes, topLeft } from "../../types/systems/mainmarks/mainmarks-props-creater";
-import { LocationXY } from '../../types/systems/background/background-common';
 import { underBreakPointWidth, underBreakPointTopMargin, underBreakPointBetweenMargin } from "../../settings/mainmarks/mainmarks";
 import BackgroundController from "../Background/background-controller";
 
