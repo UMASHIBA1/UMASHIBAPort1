@@ -8,11 +8,13 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { CssBaseline } from '@material-ui/core';
 import MainMarkLayer from './components/mainmarks/MainMarkLayer';
+import ContentLayer from './components/contents/ContentLayer';
 
 ReactDOM.render(
   <Provider store={store}>
     <CssBaseline>
       <React.Fragment>
+        <ContentLayer />
         <MainMarkLayer />
         <Background />
       </React.Fragment>

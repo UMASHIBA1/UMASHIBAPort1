@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { reduxState } from '../../types/redux/reducer';
 import { Dispatch } from 'redux';
-import { ChangeContactProps } from '../../redux/actions/action';
-import { ChangeContactPropsAction, } from '../../types/redux/actions';
+import { ChangeContactProps, ChangeContactContentProps } from '../../redux/actions/action';
+import { ChangeContactPropsAction, ChangeContactContentPropsAction, } from '../../types/redux/actions';
 import { connect } from 'react-redux';
 import MainMarkMeta from './MainMarkMeta';
 import { mapStateToPropsMainMarksType } from '../../types/redux/map-state-to-props';
@@ -16,7 +16,8 @@ const mapStateToProps = (state:reduxState): mapStateToPropsMainMarksType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    ChangeContactProps: (payload: ChangeContactPropsAction["payload"]) => (dispatch(ChangeContactProps(payload)))
+    ChangeContactProps: (payload: ChangeContactPropsAction["payload"]) => (dispatch(ChangeContactProps(payload))),
+    ChangeContactContentProps: (payload: ChangeContactContentPropsAction["payload"]) => (dispatch(ChangeContactContentProps(payload)))
 })
 
 type Props = ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps>;
@@ -27,9 +28,10 @@ class Contact extends React.Component<Props>{
     render(){
         return (
             <MainMarkMeta 
-            MainMarkCreaterName={"ContactPropsCreater"} 
+            contentType={"Contact"} 
             ChangeMainMarkDispatch={this.props.ChangeContactProps} 
-            MainMarkProps={this.props.mainMarkProps}>
+            MainMarkProps={this.props.mainMarkProps}
+            ChangeContentDispatch={this.props.ChangeContactContentProps}>
             </MainMarkMeta>
         );
     }

@@ -18,7 +18,8 @@ export type colorName =  "red"        |
                          "grey"       | 
                          "blueGrey";
 
-export type warmColorName = "red"|
+export type warmColorName = 
+"red"|
 "pink"|
 "yellow"|
 "amber"|

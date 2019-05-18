@@ -17,13 +17,8 @@ export interface topLeft{
     left: MainMarkProps.left;
 }
 
-export type MainMarkCreaterName = 
-"AboutMePropsCreater" |
-"CreatedPropsCreater" |
-"ToolsPropsCreater"   |
-"ContactPropsCreater";
-
-export type MainMarkPropsCreater = AboutMePropsCreater |
+export type MainMarkPropsCreater = 
+AboutMePropsCreater |
 CreatedPropsCreater |
 ToolsPropsCreater |
 ContactPropsCreater;

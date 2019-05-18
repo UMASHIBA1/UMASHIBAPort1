@@ -36,7 +36,7 @@ export default class AboutMePropsCreater extends MainMarksCommonPropsCreater {
     }
 
 
-    createProps(){
+    createProps():MainMarksProps{
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         const commonProps:allCommonPropTypes = this._calculateCommonProps(windowWidth,windowHeight);

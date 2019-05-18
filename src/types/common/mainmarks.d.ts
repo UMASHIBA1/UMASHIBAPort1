@@ -1,14 +1,23 @@
 import { colorName } from '../../types/systems/colors/color-word-controller';
 import { mapStateToPropsMainMarksType } from '../redux/map-state-to-props';
+import { CSSProperties } from 'react';
 
+
+export type contentType =
+"AboutMe"|
+"Created"|
+"Tools"|
+"Contact";
 
 
 export interface noCalculateMainMarkProps {
     borderColor: colorName;
     word: string;
     wordColor: colorName;
-    rotate: number;
-    zIndex: number;
+    rotate: CSSProperties.rotate;
+    zIndex: CSSProperties.zIndex;
+    shadow: Shadow;
+    display: "flex" | "hidden";
 };
 
 export interface hasCalculateMainMarksProps {
@@ -17,7 +26,7 @@ export interface hasCalculateMainMarksProps {
     widthHeight: number;
     secondWidthHeight: number;
     thirdWidthHeight: number;
-    borderWidth: number;
+    borderWidth: CSSProperties.borderWidth;
     fontVariant: TypographyProps.variant;
 };
 

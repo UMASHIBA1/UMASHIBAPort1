@@ -1,6 +1,12 @@
 import { firstBreakpointWidth, secondBreakpointWidth } from "../../settings/common-setting";
 import { allCommonPropTypes } from "../../types/systems/mainmarks/mainmarks-props-creater";
-import { upperBreakPointWidthPercent,middleBreakPointWidthPercent,underBreakPointWidth } from '../../settings/mainmarks/mainmarks';
+import { 
+    upperBreakPointWidthPercent,
+    middleBreakPointWidthPercent,
+    underBreakPointWidth, 
+    firstBorderWidth, 
+    secondBorderWidth 
+} from '../../settings/mainmarks/mainmarks';
 
 export default class MainMarksCommonPropsCreater {
 
@@ -15,7 +21,7 @@ export default class MainMarksCommonPropsCreater {
                 widthHeight,
                 secondWidthHeight: widthHeight - 30,
                 thirdWidthHeight: widthHeight - 60,
-                borderWidth: 7,
+                borderWidth: firstBorderWidth,
                 fontVariant:"h3"
             };
         }
@@ -25,7 +31,7 @@ export default class MainMarksCommonPropsCreater {
                 widthHeight,
                 secondWidthHeight: widthHeight - 30,
                 thirdWidthHeight: widthHeight - 60,
-                borderWidth: 7,
+                borderWidth: firstBorderWidth,
                 fontVariant: "h4"
             };
         }else{
@@ -34,7 +40,7 @@ export default class MainMarksCommonPropsCreater {
                 widthHeight,
                 secondWidthHeight: widthHeight - 20,
                 thirdWidthHeight: widthHeight - 40,
-                borderWidth: 5,
+                borderWidth: secondBorderWidth,
                 fontVariant: "h5"
             };
         }

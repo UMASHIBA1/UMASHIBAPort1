@@ -1,5 +1,5 @@
-import { ChangeToolsProps } from '../../redux/actions/action';
-import { ChangeToolsPropsAction, } from '../../types/redux/actions';
+import { ChangeToolsProps, ChangeToolsContentProps } from '../../redux/actions/action';
+import { ChangeToolsPropsAction, ChangeToolsContentPropsAction, } from '../../types/redux/actions';
 import * as React from 'react';
 import { reduxState } from '../../types/redux/reducer';
 import { Dispatch } from 'redux';
@@ -14,7 +14,8 @@ const mapStateToProps = (state:reduxState): mapStateToPropsMainMarksType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    ChangeToolsProps: (payload: ChangeToolsPropsAction["payload"]) => (dispatch(ChangeToolsProps(payload)))
+    ChangeToolsProps: (payload: ChangeToolsPropsAction["payload"]) => (dispatch(ChangeToolsProps(payload))),
+    ChangeToolsContentProps: (payload: ChangeToolsContentPropsAction["payload"]) => (dispatch(ChangeToolsContentProps(payload)))
 })
 
 type Props = ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps>;
@@ -24,9 +25,10 @@ class Tools extends React.Component<Props>{
     render(){
         return (
             <MainMarkMeta
-            MainMarkCreaterName={"ToolsPropsCreater"} 
+            contentType={"Tools"} 
             ChangeMainMarkDispatch={this.props.ChangeToolsProps} 
-            MainMarkProps={this.props.mainMarkProps}>
+            MainMarkProps={this.props.mainMarkProps}
+            ChangeContentDispatch={this.props.ChangeToolsContentProps}>
             </MainMarkMeta>
         );
     }

@@ -1,22 +1,23 @@
+import { Paper, Typography } from '@material-ui/core';
+import { createStyles, StyleRules, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
-import {createStyles, Theme, WithStyles } from '@material-ui/core/styles';
-import { StyleRules, withStyles } from '@material-ui/core/styles';
-import { Paper,Typography } from '@material-ui/core';
-import ColorObjController from '../../systems/Colors/color-obj-controller';
-import { ChangeMainMarksDispatch } from '../../types/redux/map-dispatch-to-props';
 import EventListener from 'react-event-listener';
-import { MainMarkPropsCreater, MainMarkCreaterName } from '../../types/systems/mainmarks/mainmarks-props-creater';
-import MainMarkProps, { noCalculateMainMarkProps } from '../../types/common/mainmarks';
+import ColorObjController from '../../systems/Colors/color-obj-controller';
+import ContentPropsCreater from '../../systems/Contents/content-props-creater';
 import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
+import ContactPropsCreater from '../../systems/MainMarks/contact-props-creater';
 import CreatedPropsCreater from '../../systems/MainMarks/created-props-creater';
 import ToolsPropsCreater from '../../systems/MainMarks/tools-props-creater';
-import ContactPropsCreater from '../../systems/MainMarks/contact-props-creater';
+import MainMarkProps, { contentType, noCalculateMainMarkProps } from '../../types/common/mainmarks';
+import { ChangeContentDispatch, ChangeMainMarkDispatch } from '../../types/redux/map-dispatch-to-props';
+import { ContentCommonPropTypes } from '../../types/systems/contents/contents-props-creater';
+import { MainMarkPropsCreater } from '../../types/systems/mainmarks/mainmarks-props-creater';
 
 
 const borderStyle = "solid";
 const transitionTime = "1.2s";
 const rotateTransitionTime = "0.6s";
-const rotateTransitionTimingFunction = "cubic-bezier(0.2, -0.19, 0.99, -0.61)"
+const rotateTransitionTimingFunction = "cubic-bezier(0.2, -0.19, 0.99, -0.61)";
 
 export const styles = (theme:Theme) :StyleRules => createStyles({
     paper: {
@@ -27,7 +28,6 @@ export const styles = (theme:Theme) :StyleRules => createStyles({
         cursor: "pointer"
     },
     outline: {
-        zIndex: 100,
         position: "absolute",
         borderStyle: borderStyle
     },
@@ -43,9 +43,10 @@ export const styles = (theme:Theme) :StyleRules => createStyles({
 });
 
 interface MainMarkGalapagosType {
-    ChangeMainMarkDispatch: ChangeMainMarksDispatch;
-    MainMarkCreaterName: MainMarkCreaterName;
-    MainMarkProps: MainMarkProps
+    ChangeMainMarkDispatch: ChangeMainMarkDispatch;
+    ChangeContentDispatch: ChangeContentDispatch;
+    contentType: contentType;
+    MainMarkProps: MainMarkProps;
 }
 
 
@@ -65,21 +66,32 @@ class MainMarkMeta extends React.Component<Props>{
         this._colorObj = new ColorObjController();
     }
 
-    protected changeRotate (
-        rotateSetting:           number,
-        zIndexSetting:           number,
-        mainMarkProps:           MainMarkProps,
-        ChangeMainMarkDispatch: ChangeMainMarksDispatch
+    private _produceContent (
+        ChangeContentDispatch: ChangeContentDispatch,
+        contentType: ContentCommonPropTypes["contentType"],
+        word: ContentCommonPropTypes["word"],
+        wordColor: ContentCommonPropTypes["wordColor"],
+        borderColor: ContentCommonPropTypes["borderColor"]
         ){
-        ChangeMainMarkDispatch(Object.assign({}, mainMarkProps, {rotate: rotateSetting,zIndex: zIndexSetting}));
+            const displaySetting = "flex";
+            const contentObj = new ContentPropsCreater();
+            const contentProps = contentObj.createFirstContentProps({
+                contentType,
+                word,
+                wordColor,
+                borderColor,
+                display: displaySetting
+            });
+            ChangeContentDispatch(Object.assign({},contentProps));
     }
 
-    private _judgeAndCreateMarkCreater(nowState: noCalculateMainMarkProps,MainMarkCreaterName: MainMarkCreaterName): MainMarkPropsCreater{
-        if(MainMarkCreaterName === "AboutMePropsCreater"){
+
+    private _judgeAndCreateMarkCreater(nowState: noCalculateMainMarkProps,MainMarkCreaterName: contentType): MainMarkPropsCreater{
+        if(MainMarkCreaterName === "AboutMe"){
             return new AboutMePropsCreater(nowState);
-        }else if(MainMarkCreaterName === "CreatedPropsCreater"){
+        }else if(MainMarkCreaterName === "Created"){
             return new CreatedPropsCreater(nowState);
-        }else if(MainMarkCreaterName === "ToolsPropsCreater"){
+        }else if(MainMarkCreaterName === "Tools"){
             return new ToolsPropsCreater(nowState);
         }else{
             return new ContactPropsCreater(nowState);
@@ -88,14 +100,14 @@ class MainMarkMeta extends React.Component<Props>{
 
     private _changeTopLeftWidthHeight(
         mainMarkProps: MainMarkProps,
-        ChangeMainMarksDispatch: ChangeMainMarksDispatch,
-        MainMarkCreaterName: MainMarkCreaterName): void{
+        ChangeMainMarksDispatch: ChangeMainMarkDispatch,
+        MainMarkCreaterName: contentType): void{
         if(this._resizeTimer !== 0){
             window.clearTimeout(this._resizeTimer);
         }
         this._resizeTimer = window.setTimeout(()=>{
-            const {borderColor,word,wordColor,rotate,zIndex} = mainMarkProps;
-            const calcObj = this._judgeAndCreateMarkCreater({borderColor,word,wordColor,rotate,zIndex},MainMarkCreaterName);
+            const {borderColor,word,wordColor,rotate,zIndex,shadow,display} = mainMarkProps;
+            const calcObj = this._judgeAndCreateMarkCreater({borderColor,word,wordColor,rotate,zIndex,shadow,display},MainMarkCreaterName);
             const topLeftWidthHeight = calcObj.createProps();
             ChangeMainMarksDispatch(topLeftWidthHeight);
         },this._resizeWaitTime);
@@ -114,13 +126,22 @@ class MainMarkMeta extends React.Component<Props>{
             wordColor,
             borderColor,
             rotate,
-            zIndex
+            zIndex,
+            shadow,
+            display
         } = this.props.MainMarkProps;
+        const {ChangeContentDispatch,contentType} = this.props;
         return (
             <React.Fragment>
-                <Paper elevation={24} 
-                onMouseEnter={()=>(this.changeRotate(0,101,this.props.MainMarkProps,this.props.ChangeMainMarkDispatch))} 
-                onMouseLeave={()=>(this.changeRotate(45,100,this.props.MainMarkProps,this.props.ChangeMainMarkDispatch))}
+                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight(this.props.MainMarkProps,this.props.ChangeMainMarkDispatch,this.props.contentType))}></EventListener>
+                <Paper elevation={shadow} 
+                onClick={() => (this._produceContent(
+                    ChangeContentDispatch,
+                    contentType,
+                    word,
+                    wordColor,
+                    borderColor
+                ))}
                 className={`${this.props.classes.outline} ${this.props.classes.paper}`}
                 style={{
                     top,
@@ -161,7 +182,6 @@ class MainMarkMeta extends React.Component<Props>{
                         </Paper>
                     </Paper>
                 </Paper>
-                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight(this.props.MainMarkProps,this.props.ChangeMainMarkDispatch,this.props.MainMarkCreaterName))}></EventListener>
             </React.Fragment>
         );
     }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { reduxState } from '../../types/redux/reducer';
 import { Dispatch } from 'redux';
-import { ChangeAboutMeProps } from '../../redux/actions/action';
-import { ChangeAboutMePropsAction, } from '../../types/redux/actions';
+import { ChangeAboutMeProps, ChangeAboutMeContentProps } from '../../redux/actions/action';
+import { ChangeAboutMePropsAction, ChangeAboutMeContentPropsAction, } from '../../types/redux/actions';
 import { connect } from 'react-redux';
 import MainMarkMeta from './MainMarkMeta';
 import { mapStateToPropsMainMarksType } from '../../types/redux/map-state-to-props';
@@ -13,7 +13,8 @@ const mapStateToProps = (state:reduxState):mapStateToPropsMainMarksType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    ChangeAboutMeProps: (payload: ChangeAboutMePropsAction["payload"]) => (dispatch(ChangeAboutMeProps(payload)))
+    ChangeAboutMeProps: (payload: ChangeAboutMePropsAction["payload"]) => (dispatch(ChangeAboutMeProps(payload))),
+    ChangeAboutMeContentProps: (payload: ChangeAboutMeContentPropsAction["payload"]) => (dispatch(ChangeAboutMeContentProps(payload)))
 })
 
 
@@ -24,9 +25,11 @@ class AboutMe extends React.Component<Props>{
     render(){
         return (
             <MainMarkMeta 
-            MainMarkCreaterName={"AboutMePropsCreater"} 
+            contentType={"AboutMe"} 
             ChangeMainMarkDispatch={this.props.ChangeAboutMeProps} 
-            MainMarkProps={this.props.mainMarkProps}>
+            MainMarkProps={this.props.mainMarkProps}
+            ChangeContentDispatch={this.props.ChangeAboutMeContentProps}
+            >
             </MainMarkMeta>
         );
     }
