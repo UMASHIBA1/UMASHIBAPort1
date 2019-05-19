@@ -30,7 +30,7 @@ const styles = (theme:Theme): StyleRules => createStyles({
     },
     outline: {
         position: "absolute",
-        borderStyle: borderStyle
+        borderStyle: borderStyle,
     },
     second: {
         borderStyle: borderStyle

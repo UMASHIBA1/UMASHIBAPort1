@@ -4,10 +4,14 @@ import { StyleRules, createStyles, withStyles, WithStyles } from '@material-ui/c
 import { Dispatch } from 'redux';
 import { ChangeAboutMeContentPropsAction, ChangeCreatedContentPropsAction, ChangeToolsContentPropsAction, ChangeContactContentPropsAction, ChangeAboutMePropsAction, ChangeCreatedPropsAction, ChangeToolsPropsAction, ChangeContactPropsAction } from '../../../../types/redux/actions';
 import { ChangeAboutMeContentProps, ChangeCreaetedContentProps, ChangeToolsContentProps, ChangeContactContentProps, ChangeAboutMeProps, ChangeCreatedProps, ChangeToolsProps, ChangeContactProps } from '../../../../redux/actions/action';
-import { contentType } from '../../../../types/common/mainmarks';
+import MainMarkProps, { contentType } from '../../../../types/common/mainmarks';
 import ContentPropsCreater from '../../../../systems/Contents/content-props-creater';
 import { reduxState } from '../../../../types/redux/reducer';
 import { connect } from 'react-redux';
+import AboutMePropsCreater from '../../../../systems/MainMarks/aboutme-props-creater';
+import CreatedPropsCreater from '../../../../systems/MainMarks/created-props-creater';
+import ToolsPropsCreater from '../../../../systems/MainMarks/tools-props-creater';
+import ContactPropsCreater from '../../../../systems/MainMarks/contact-props-creater';
 
 
 const transitionTime_s = 1.2;
@@ -53,6 +57,11 @@ ReturnType<typeof mapDispatchToProps> &
 ReturnType<typeof mapStateToProps> &
 GalapagosProps;
 
+
+const defaultRotate = 45;
+const defaultZIndex = 100;
+const defaultWordColor = 'grey'
+const defaultShadow = 12;
 class BackButton extends React.Component<Props> {
 
     private _judgeStateAndDispatch(props:Props){
@@ -60,34 +69,75 @@ class BackButton extends React.Component<Props> {
         let mainMarkState: any;
         let dispatchContent: any;
         let dispatchMainmark: any;
+        let mainMarkProp: MainMarkProps;
         if(props.contentType==="AboutMe"){
             state = props.aboutMeContentProps;
             mainMarkState = props.aboutMeProps;
             dispatchContent = props.ChangeAboutMeContentProps;
             dispatchMainmark = props.ChangeAboutMeProps;
+            const mainMarkCreater:AboutMePropsCreater = new AboutMePropsCreater({
+                word: "AboutMe",
+                borderColor: 'blue',
+                wordColor: defaultWordColor,
+                rotate: defaultRotate,
+                zIndex: defaultZIndex,
+                shadow: defaultShadow,
+                display: "flex"
+            });
+            mainMarkProp = mainMarkCreater.createProps();
         }else if(props.contentType==="Created"){
             state = props.createdContentProps;
             mainMarkState = props.createdProps;
             dispatchContent = props.ChangeCreatedContentProps;
             dispatchMainmark = props.ChangeCreatedProps;
+            const mainMarkCreater:CreatedPropsCreater = new CreatedPropsCreater({
+                word: 'Created',
+                borderColor: 'red',
+                wordColor: defaultWordColor,
+                rotate: defaultRotate,
+                zIndex: defaultZIndex,
+                shadow: defaultShadow,
+                display: "flex"
+            });
+            mainMarkProp = mainMarkCreater.createProps();
         }else if(props.contentType==="Tools"){
             state = props.toolsContentProps;
             mainMarkState = props.toolsProps;
             dispatchContent = props.ChangeToolsContentProps;
             dispatchMainmark = props.ChangeToolsProps;
+            const mainMarkCreater:ToolsPropsCreater = new ToolsPropsCreater({
+                word: 'Tools',
+                borderColor: 'green',
+                wordColor: defaultWordColor,
+                rotate: defaultRotate,
+                zIndex: defaultZIndex,
+                shadow: defaultShadow,
+                display: "flex"
+            });
+            mainMarkProp = mainMarkCreater.createProps();
         }else{
             state = props.contactContentProps;
             mainMarkState = props.contactProps;
             dispatchContent = props.ChangeContactContentProps;
             dispatchMainmark = props.ChangeContactProps;
+            const mainMarkCreater:ContactPropsCreater = new ContactPropsCreater({
+                word: 'Contact',
+                borderColor: 'purple',
+                wordColor: defaultWordColor,
+                rotate: defaultRotate,
+                zIndex: defaultZIndex,
+                shadow: defaultShadow,
+                display: "flex"
+            });
+            mainMarkProp = mainMarkCreater.createProps();
         }
-        return {state,mainMarkState,dispatchContent,dispatchMainmark};
+        return {state,mainMarkState,dispatchContent,dispatchMainmark,mainMarkProp};
     }
 
 
     private _shrinkContent(props:Props):void{
 
-        const {state,mainMarkState,dispatchContent,dispatchMainmark} = this._judgeStateAndDispatch(props);
+        const {state,mainMarkState,dispatchContent,dispatchMainmark,mainMarkProp} = this._judgeStateAndDispatch(props);
             const calcObj = new ContentPropsCreater();
             const animationProps = {
                 contentType:props.contentType,
@@ -98,13 +148,12 @@ class BackButton extends React.Component<Props> {
             const calcResult = calcObj.createBackStartAnimationProps(animationProps);
             const rotatedCalcResult = calcObj.createBackEndAnimationProps(animationProps);
             const hiddenCalcResult = Object.assign({},rotatedCalcResult,{display:"hidden"});
-            const initialMainMarkProps = Object.assign({},mainMarkState,{display:"flex"});
                 dispatchContent(calcResult);
                 setTimeout(() => {
                     dispatchContent(rotatedCalcResult);
                     setTimeout(() => {
                         dispatchContent(hiddenCalcResult);   
-                        dispatchMainmark(initialMainMarkProps); 
+                        dispatchMainmark(mainMarkProp); 
                     }, rotateTransitionTime_s*1000);
                 }, transitionTime_s*1000);
         }
