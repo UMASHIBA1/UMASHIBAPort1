@@ -1,6 +1,7 @@
 {
   "name": "portfolio4",
   "version": "0.1.0",
+  "homepage": "https://umashiba1.github.io/MyPortFolio1/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
@@ -24,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "redux-devtools-extension": "^2.13.8"
   }
 }
