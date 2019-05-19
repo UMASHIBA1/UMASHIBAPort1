@@ -26,7 +26,7 @@ class Created extends React.Component<Props>{
             <MainMarkMeta 
             contentType={"Created"} 
             ChangeMainMarkDispatch={this.props.ChangeCreatedProps} 
-            MainMarkProps={this.props.mainMarkProps}
+            mainMarkProps={this.props.mainMarkProps}
             ChangeContentDispatch={this.props.ChangeCreatedContentProps}>
             </MainMarkMeta>
         );

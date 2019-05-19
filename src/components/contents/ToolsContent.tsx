@@ -6,24 +6,38 @@ import { ChangeToolsContentPropsAction, } from '../../types/redux/actions';
 import { connect } from 'react-redux';
 // import { ChangeAboutMeContentPropsActionWithDispatch } from '../../types/redux/map-dispatch-to-props';
 import ContentMeta from './ContentMeta';
+import { ChangeContentDispatch } from '../../types/redux/map-dispatch-to-props';
+import ContentProps from '../../types/systems/contents/content';
+import ContentPropsCreater from '../../systems/Contents/content-props-creater';
 
 const mapStateToProps = (state:reduxState) => ({
-    contentProps: Object.assign({},state.toolsContentProps)
+    ContentProps: Object.assign({},state.toolsContentProps)
 });
 
 const mapDispatchToProps =(dispatch:Dispatch) => ({
-    ChangeToolsContentProps: (payload: ChangeToolsContentPropsAction["payload"]) => (dispatch(ChangeToolsContentProps(payload)))
+    ChangeContentProps: (payload: ChangeToolsContentPropsAction["payload"]) => (dispatch(ChangeToolsContentProps(payload)))
 });
+
+// interface ContentMetaGalapagosType {
+//     ContentProps: ContentProps;
+//     ChangeContentProps :ChangeContentDispatch;
+// }
+
+// type Props =  ContentMetaGalapagosType;
 
 type Props = ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps >;
 
 class ToolsContent extends React.Component<Props> {
+
     render(){
         return(
-            <ContentMeta 
-            ChangeMainMarkDispatch={this.props.ChangeToolsContentProps}
-            ContentProps={this.props.contentProps}>
-            </ContentMeta>
+            <React.Fragment>
+                {this.props.ContentProps.display=="hidden"?<React.Fragment />:<ContentMeta 
+                ContentProps={this.props.ContentProps}
+                ChangeContentProps={this.props.ChangeContentProps}
+                >
+                </ContentMeta>}
+            </React.Fragment>
         );
     }
 }

@@ -30,7 +30,7 @@ class Contact extends React.Component<Props>{
             <MainMarkMeta 
             contentType={"Contact"} 
             ChangeMainMarkDispatch={this.props.ChangeContactProps} 
-            MainMarkProps={this.props.mainMarkProps}
+            mainMarkProps={this.props.mainMarkProps}
             ChangeContentDispatch={this.props.ChangeContactContentProps}>
             </MainMarkMeta>
         );

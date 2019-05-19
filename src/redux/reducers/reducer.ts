@@ -70,28 +70,28 @@ const aboutMeProps = aboutMeObj.createProps();
 const createdProps = createdObj.createProps();
 const toolsProps = toolsObj.createProps();
 const contactProps = contactObj.createProps();
-const aboutMeContentProps: ContentProps = contentCreaterObj.createFirstContentProps({
+const aboutMeContentProps: ContentProps = contentCreaterObj.createStartAnimationProps({
     borderColor: "blue",
     contentType: "AboutMe",
     word: "AboutMe",
     wordColor: "blue",
     display: "hidden"
 });
-const createdContentProps: ContentProps = contentCreaterObj.createFirstContentProps({
+const createdContentProps: ContentProps = contentCreaterObj.createStartAnimationProps({
     borderColor: "red",
     contentType: "Created",
     word: "Created",
     wordColor: "red",
     display: "hidden"
 });
-const toolsContentProps: ContentProps = contentCreaterObj.createFirstContentProps({
+const toolsContentProps: ContentProps = contentCreaterObj.createStartAnimationProps({
     borderColor: "green",
     contentType: "Tools",
     word: "Tools",
     wordColor: "green",
     display:"hidden"
 });
-const contactContentProps: ContentProps = contentCreaterObj.createFirstContentProps({
+const contactContentProps: ContentProps = contentCreaterObj.createStartAnimationProps({
     borderColor: "purple",
     contentType: "Contact",
     word: "Contact",

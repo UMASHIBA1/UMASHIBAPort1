@@ -13,6 +13,7 @@ import {
 import { backgroundSquareProp } from '../common/background-square';
 import MainMarkProps from '../common/mainmarks';
 import ContentProps from '../systems/contents/content';
+import { ChangeAboutMeProps, ChangeCreatedProps, ChangeToolsProps, ChangeContactProps } from '../../redux/actions/action';
 
 
 
@@ -25,6 +26,7 @@ export interface ChangeBackgroundSquarePropsAction {
     type: TYPE_CHANGE_BACKGROUND_SQUARE_PROPS;
     payload: backgroundSquareProp[];
 }
+
 
 export interface ChangeAboutMePropsAction {
     type: TYPE_CHANGE_ABOUT_ME_PROPS;
@@ -46,6 +48,14 @@ export interface ChangeContactPropsAction {
     payload: MainMarkProps;
 }
 
+
+export type ChangeMainMarkAction = 
+ChangeAboutMeProps | 
+ChangeCreatedProps |
+ChangeToolsProps   |
+ChangeContactProps;
+
+
 export interface ChangeAboutMeContentPropsAction {
     type: TYPE_CHANGE_ABOUT_ME_CONTENT_PROPS;
     payload: ContentProps;
@@ -65,3 +75,10 @@ export interface ChangeContactContentPropsAction {
     type: TYPE_CHANGE_CONTACT_CONTENT_PROPS;
     payload: ContentProps;
 }
+
+
+export type ChangeContentAction = 
+ChangeAboutMeContentPropsAction |
+ChangeCreatedContentPropsAction |
+ChangeToolsContentPropsAction   |
+ChangeContactContentPropsAction;

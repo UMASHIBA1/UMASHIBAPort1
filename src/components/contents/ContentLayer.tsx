@@ -5,6 +5,8 @@ import AboutMeContent from './AboutMeContent';
 import CreatedContent from './CreatedContent';
 import ToolsContent from './ToolsContent';
 import ContactContent from './ContactContent';
+import { reduxState } from '../../types/redux/reducer';
+import { connect } from 'react-redux';
 
 const styles = (theme:Theme): StyleRules => createStyles({
     mainMarkLayer: {
@@ -14,7 +16,14 @@ const styles = (theme:Theme): StyleRules => createStyles({
     }
 });
 
-type Props = WithStyles<typeof styles>;
+const mapStateToProps = (state:reduxState) =>({
+    AboutMeContent: Object.assign({},state.aboutMeContentProps),
+    CreatedContent: Object.assign({},state.createdContentProps),
+    ToolsContent: Object.assign({},state.toolsContentProps),
+    ContactContent: Object.assign({},state.contactContentProps)
+})
+
+type Props = WithStyles<typeof styles> & ReturnType<typeof mapStateToProps>;
 
 class ContentLayer extends React.Component<Props>{
 
@@ -30,4 +39,4 @@ class ContentLayer extends React.Component<Props>{
     }
 }
 
-export default withStyles(styles)(ContentLayer);
+export default connect(mapStateToProps)(withStyles(styles)(ContentLayer));

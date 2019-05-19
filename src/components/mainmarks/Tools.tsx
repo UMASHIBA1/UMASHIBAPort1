@@ -27,7 +27,7 @@ class Tools extends React.Component<Props>{
             <MainMarkMeta
             contentType={"Tools"} 
             ChangeMainMarkDispatch={this.props.ChangeToolsProps} 
-            MainMarkProps={this.props.mainMarkProps}
+            mainMarkProps={this.props.mainMarkProps}
             ChangeContentDispatch={this.props.ChangeToolsContentProps}>
             </MainMarkMeta>
         );

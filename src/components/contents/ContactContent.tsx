@@ -5,24 +5,37 @@ import { ChangeContactContentProps } from '../../redux/actions/action';
 import { ChangeContactContentPropsAction, } from '../../types/redux/actions';
 import { connect } from 'react-redux';
 import ContentMeta from './ContentMeta';
+import { ChangeContentDispatch } from '../../types/redux/map-dispatch-to-props';
+import ContentProps from '../../types/systems/contents/content';
+import ContentPropsCreater from '../../systems/Contents/content-props-creater';
 
 const mapStateToProps = (state:reduxState) => ({
-    contentProps: Object.assign({},state.contactContentProps)
+    ContentProps: Object.assign({},state.contactContentProps)
 });
 
 const mapDispatchToProps =(dispatch:Dispatch) => ({
-    ChangeContactContentProps: (payload: ChangeContactContentPropsAction["payload"]) => (dispatch(ChangeContactContentProps(payload)))
+    ChangeContentProps: (payload: ChangeContactContentPropsAction["payload"]) => (dispatch(ChangeContactContentProps(payload)))
 });
 
-type Props = ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps >;
+// type Props = ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps >;
 
+interface ContentMetaGalapagosType {
+    ContentProps: ContentProps;
+    ChangeContentProps :ChangeContentDispatch;
+}
+
+type Props =  ContentMetaGalapagosType;
 class ContactContent extends React.Component<Props> {
+
     render(){
         return(
-            <ContentMeta 
-            ChangeMainMarkDispatch={this.props.ChangeContactContentProps}
-            ContentProps={this.props.contentProps}>
-            </ContentMeta>
+            <React.Fragment>
+                {this.props.ContentProps.display=="hidden"?<React.Fragment />:<ContentMeta 
+                ContentProps={this.props.ContentProps}
+                ChangeContentProps={this.props.ChangeContentProps}
+                >
+                </ContentMeta>}
+            </React.Fragment>
         );
     }
 }

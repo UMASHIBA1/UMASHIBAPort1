@@ -27,7 +27,7 @@ class AboutMe extends React.Component<Props>{
             <MainMarkMeta 
             contentType={"AboutMe"} 
             ChangeMainMarkDispatch={this.props.ChangeAboutMeProps} 
-            MainMarkProps={this.props.mainMarkProps}
+            mainMarkProps={this.props.mainMarkProps}
             ChangeContentDispatch={this.props.ChangeAboutMeContentProps}
             >
             </MainMarkMeta>

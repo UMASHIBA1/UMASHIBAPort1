@@ -23,8 +23,11 @@ export interface hasCalculateContentProps {
     secondHeight: CSSPropertie["height"];
     thirdWidth: CSSProperties["width"];
     thirdHeight: CSSProperties["height"];
+    fontVariant: MainMarkProps["fontVariant"];
 }
 
-type ContentProps = noCalculateContentProps & hasCalculateContentProps;
+type ContentProps = 
+noCalculateContentProps&
+hasCalculateContentProps;
 
 export default ContentProps;

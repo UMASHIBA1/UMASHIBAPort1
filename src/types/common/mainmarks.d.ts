@@ -17,7 +17,7 @@ export interface noCalculateMainMarkProps {
     rotate: CSSProperties.rotate;
     zIndex: CSSProperties.zIndex;
     shadow: Shadow;
-    display: "flex" | "hidden";
+    display: "flex"|"hidden";
 };
 
 export interface hasCalculateMainMarksProps {

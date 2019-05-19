@@ -6,15 +6,16 @@ import {
     ChangeCreatedContentPropsAction,
     ChangeToolsContentPropsAction,
     ChangeContactPropsAction,
-    ChangeContactContentPropsAction
+    ChangeContactContentPropsAction,
+    ChangeBackgroundSquarePropsAction
 } from "./actions";
 import { 
     ChangeAboutMeContentAndMainMarkProps,
     ChangeCreaetedContentProps 
 } from "../../redux/actions/action";
+import { Dispatch } from "redux";
 
-export type ChangeBackgroundSquarePropsActionWithDispatch = (payload: ChangeAboutMePropsAction.payload) => ChangeBackgroundSquarePropsAction;
-
+export type ChangeBackgroundSquarePropsActionWithDispatch = (payload: ChangeBackgroundSquarePropsAction.payload) => ChangeBackgroundSquarePropsAction;
 
 export type AddBackgroundSquarePropsActionWithDispatch = (payload: AddBackgroundSquarePropsAction.payload) => AddBackgroundSquarePropsAction;
 

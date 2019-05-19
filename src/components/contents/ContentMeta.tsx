@@ -1,22 +1,26 @@
 import * as React from 'react';
 import {createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import { StyleRules } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
-import { ChangeMainMarkDispatch } from '../../types/redux/map-dispatch-to-props';
+import { Paper, Typography } from '@material-ui/core';
+import { ChangeMainMarkDispatch, ChangeContentDispatch } from '../../types/redux/map-dispatch-to-props';
 // import EventListener from 'react-event-listener';
 // import MainMarkProps from '../../types/common/mainmarks';
 import ColorObjController from '../../systems/Colors/color-obj-controller';
 import ContentProps from '../../types/systems/contents/content';
+import { Dispatch } from 'redux';
+import { ChangeContentAction } from '../../types/redux/actions';
+import ContentPropsCreater from '../../systems/Contents/content-props-creater';
 
 const borderStyle = "solid";
-const transitionTime = "1.2s";
-const rotateTransitionTime = "0.6s";
+const transitionTime_s = 1.2;
+const rotateTransitionTime_s = 0.6;
+const marginTime_ms = 10
 const rotateTransitionTimingFunction = "cubic-bezier(0.2, -0.19, 0.99, -0.61)"
 
 
 const styles = (theme:Theme): StyleRules => createStyles({
     paper: {
-        transition: `top ${transitionTime}, left ${transitionTime}, width ${transitionTime}, height ${transitionTime}, border-width ${transitionTime}, transform ${rotateTransitionTime} ${rotateTransitionTimingFunction}`,
+        transition: `top ${transitionTime_s}s, left ${transitionTime_s}s, width ${transitionTime_s}s, height ${transitionTime_s}s, border-width ${transitionTime_s}s, transform ${rotateTransitionTime_s}s ${rotateTransitionTimingFunction}`,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -33,16 +37,15 @@ const styles = (theme:Theme): StyleRules => createStyles({
         borderStyle: borderStyle
     },
     centerWord: {
-        transition: `${rotateTransitionTime}  ${rotateTransitionTimingFunction}`,
+        transition: `transform ${rotateTransitionTime_s}s ${rotateTransitionTimingFunction}`,
     }
 })
 
-
-
 interface ContentMetaGalapagosType {
-    ChangeMainMarkDispatch: ChangeMainMarkDispatch;
     ContentProps: ContentProps;
+    ChangeContentProps :ChangeContentDispatch;
 }
+
 
 type Props = ContentMetaGalapagosType & WithStyles<typeof styles>;
 class ContentMeta extends React.Component<Props>{
@@ -57,6 +60,29 @@ class ContentMeta extends React.Component<Props>{
     }
 
 
+    componentDidMount(){
+        if(this.props.ContentProps.display!="hidden"){
+            setTimeout(() => {
+                const contentProps = Object.assign({},this.props.ContentProps,{rotate:0});
+                this.props.ChangeContentProps(contentProps);
+                const {
+                    word,
+                    wordColor,
+                    borderColor
+                } = this.props.ContentProps;
+                const contentObj = new ContentPropsCreater();
+                const endAnimationProps = contentObj.createEndContentProps({
+                    word,wordColor,borderColor
+                });
+                setTimeout(()=>{
+                    this.props.ChangeContentProps(endAnimationProps);
+                },transitionTime_s*1000)
+            }, marginTime_ms);
+        }
+    }
+
+
+
     render(){
         const {
             borderColor,
@@ -64,7 +90,7 @@ class ContentMeta extends React.Component<Props>{
             wordColor,
             zIndex,
             rotate,
-            display,
+            // display,
             top,
             left,
             borderWidth,
@@ -73,10 +99,10 @@ class ContentMeta extends React.Component<Props>{
             secondWidth,
             secondHeight,
             thirdWidth,
-            thirdHeight
+            thirdHeight,
+            fontVariant
         } = this.props.ContentProps;
         return (
-            display==="hidden"?<React.Fragment />:
             <React.Fragment>
                 <Paper elevation={24} 
                 className={`${this.props.classes.outline} ${this.props.classes.paper}`}
@@ -110,12 +136,12 @@ class ContentMeta extends React.Component<Props>{
                             borderWidth,
                             borderColor: this._colorObj.specifiedColor(borderColor)[900]
                         }}>
-                            {/* <Typography color={'error'} align={'center'} variant={this.props.MainMarkProps.fontVariant} className={this.props.classes.centerWord} style={{
+                            <Typography color={'error'} align={'center'} variant={fontVariant} className={this.props.classes.centerWord} style={{
                                 color: wordColor,
                                 transform: `rotate(-${rotate}deg)`
                             }}>
                                 {word}
-                            </Typography> */}
+                            </Typography>
                         </Paper>
                     </Paper>
                 </Paper>

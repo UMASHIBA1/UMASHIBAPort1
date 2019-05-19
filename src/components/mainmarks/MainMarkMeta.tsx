@@ -10,7 +10,7 @@ import CreatedPropsCreater from '../../systems/MainMarks/created-props-creater';
 import ToolsPropsCreater from '../../systems/MainMarks/tools-props-creater';
 import MainMarkProps, { contentType, noCalculateMainMarkProps } from '../../types/common/mainmarks';
 import { ChangeContentDispatch, ChangeMainMarkDispatch } from '../../types/redux/map-dispatch-to-props';
-import { ContentCommonPropTypes } from '../../types/systems/contents/contents-props-creater';
+import { PropsForStartAnimation } from '../../types/systems/contents/contents-props-creater';
 import { MainMarkPropsCreater } from '../../types/systems/mainmarks/mainmarks-props-creater';
 
 
@@ -46,7 +46,7 @@ interface MainMarkGalapagosType {
     ChangeMainMarkDispatch: ChangeMainMarkDispatch;
     ChangeContentDispatch: ChangeContentDispatch;
     contentType: contentType;
-    MainMarkProps: MainMarkProps;
+    mainMarkProps: MainMarkProps;
 }
 
 
@@ -68,20 +68,24 @@ class MainMarkMeta extends React.Component<Props>{
 
     private _produceContent (
         ChangeContentDispatch: ChangeContentDispatch,
-        contentType: ContentCommonPropTypes["contentType"],
-        word: ContentCommonPropTypes["word"],
-        wordColor: ContentCommonPropTypes["wordColor"],
-        borderColor: ContentCommonPropTypes["borderColor"]
+        ChangeMainMarkDispatch: ChangeMainMarkDispatch,
+        contentType: PropsForStartAnimation["contentType"],
+        MainMarkProps: MainMarkProps
+        // word: PropsForStartAnimation["word"],
+        // wordColor: PropsForStartAnimation["wordColor"],
+        // borderColor: PropsForStartAnimation["borderColor"]
         ){
+            const {word,wordColor,borderColor} = MainMarkProps;
             const displaySetting = "flex";
             const contentObj = new ContentPropsCreater();
-            const contentProps = contentObj.createFirstContentProps({
+            const contentProps = contentObj.createStartAnimationProps({
                 contentType,
                 word,
                 wordColor,
                 borderColor,
                 display: displaySetting
             });
+            ChangeMainMarkDispatch(Object.assign({},MainMarkProps,{display:"hidden"}));
             ChangeContentDispatch(Object.assign({},contentProps));
     }
 
@@ -127,62 +131,66 @@ class MainMarkMeta extends React.Component<Props>{
             borderColor,
             rotate,
             zIndex,
+            display,
             shadow,
-            display
-        } = this.props.MainMarkProps;
-        const {ChangeContentDispatch,contentType} = this.props;
+        } = this.props.mainMarkProps;
+        const {ChangeMainMarkDispatch,mainMarkProps: MainMarkProps,ChangeContentDispatch,contentType} = this.props;
         return (
+        <React.Fragment>
+            {this.props.mainMarkProps["display"]=="hidden"?<React.Fragment />:
             <React.Fragment>
-                <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight(this.props.MainMarkProps,this.props.ChangeMainMarkDispatch,this.props.contentType))}></EventListener>
-                <Paper elevation={shadow} 
-                onClick={() => (this._produceContent(
-                    ChangeContentDispatch,
-                    contentType,
-                    word,
-                    wordColor,
-                    borderColor
-                ))}
-                className={`${this.props.classes.outline} ${this.props.classes.paper}`}
+<EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight(MainMarkProps,ChangeMainMarkDispatch,contentType))}></EventListener>
+            <Paper elevation={shadow} 
+            onClick={() => (this._produceContent(
+                ChangeContentDispatch,
+                ChangeMainMarkDispatch,
+                contentType,
+                MainMarkProps
+            ))}
+            className={`${this.props.classes.outline} ${this.props.classes.paper}`}
+            style={{
+                top,
+                left,
+                width: widthHeight,
+                height: widthHeight,
+                borderWidth,
+                borderColor: this._colorObj.specifiedColor(borderColor)[300],
+                transform: `rotate(${rotate}deg)`,
+                zIndex,
+            }}
+            >
+                <Paper className={`${this.props.classes.paper} ${this.props.classes.second}`}
                 style={{
                     top,
                     left,
-                    width: widthHeight,
-                    height: widthHeight,
+                    width: secondWidthHeight,
+                    height: secondWidthHeight,
                     borderWidth,
-                    borderColor: this._colorObj.specifiedColor(borderColor)[300],
-                    transform: `rotate(${rotate}deg)`,
-                    zIndex
+                    borderColor: this._colorObj.specifiedColor(borderColor)[500]
                 }}
                 >
-                    <Paper className={`${this.props.classes.paper} ${this.props.classes.second}`}
+                    <Paper className={`${this.props.classes.paper} ${this.props.classes.third}`}
                     style={{
                         top,
                         left,
-                        width: secondWidthHeight,
-                        height: secondWidthHeight,
+                        width: thirdWidthHeight,
+                        height: thirdWidthHeight,
                         borderWidth,
-                        borderColor: this._colorObj.specifiedColor(borderColor)[500]
-                    }}
-                    >
-                        <Paper className={`${this.props.classes.paper} ${this.props.classes.third}`}
-                        style={{
-                            top,
-                            left,
-                            width: thirdWidthHeight,
-                            height: thirdWidthHeight,
-                            borderWidth,
-                            borderColor: this._colorObj.specifiedColor(borderColor)[900]
+                        borderColor: this._colorObj.specifiedColor(borderColor)[900]
+                    }}>
+                        <Typography color={'error'} align={'center'} variant={this.props.mainMarkProps.fontVariant} className={this.props.classes.centerWord} style={{
+                            color: wordColor,
+                            transform: `rotate(-${rotate}deg)`
                         }}>
-                            <Typography color={'error'} align={'center'} variant={this.props.MainMarkProps.fontVariant} className={this.props.classes.centerWord} style={{
-                                color: wordColor,
-                                transform: `rotate(-${rotate}deg)`
-                            }}>
-                                {word}
-                            </Typography>
-                        </Paper>
+                            {word}
+                        </Typography>
                     </Paper>
                 </Paper>
+            </Paper>
             </React.Fragment>
+            }
+            
+        </React.Fragment> 
         );
     }
 

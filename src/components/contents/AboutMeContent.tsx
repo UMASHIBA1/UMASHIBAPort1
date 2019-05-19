@@ -6,24 +6,37 @@ import { ChangeAboutMeContentPropsAction, } from '../../types/redux/actions';
 import { connect } from 'react-redux';
 // import { ChangeAboutMeContentPropsActionWithDispatch } from '../../types/redux/map-dispatch-to-props';
 import ContentMeta from './ContentMeta';
+import ContentProps from '../../types/systems/contents/content';
+import { ChangeContentDispatch } from '../../types/redux/map-dispatch-to-props';
+import ContentPropsCreater from '../../systems/Contents/content-props-creater';
 
 const mapStateToProps = (state:reduxState) => ({
-    contentProps: Object.assign({},state.aboutMeContentProps)
+    ContentProps: Object.assign({},state.aboutMeContentProps)
 });
 
 const mapDispatchToProps =(dispatch:Dispatch) => ({
-    ChangeAboutMeContentProps: (payload: ChangeAboutMeContentPropsAction["payload"]) => (dispatch(ChangeAboutMeContentProps(payload)))
+    ChangeContentProps: (payload: ChangeAboutMeContentPropsAction["payload"]) => (dispatch(ChangeAboutMeContentProps(payload)))
 });
 
-type Props = ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps >;
+interface ContentMetaGalapagosType {
+    ContentProps: ContentProps;
+    ChangeContentProps :ChangeContentDispatch;
+}
+
+type Props =  ContentMetaGalapagosType;
+// ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps >;
 
 class AboutMeContent extends React.Component<Props> {
+
     render(){
         return(
-            <ContentMeta 
-            ChangeMainMarkDispatch={this.props.ChangeAboutMeContentProps}
-            ContentProps={this.props.contentProps}>
-            </ContentMeta>
+            <React.Fragment>
+                {this.props.ContentProps.display=="hidden"?<React.Fragment />:<ContentMeta 
+                ContentProps={this.props.ContentProps}
+                ChangeContentProps={this.props.ChangeContentProps}
+                >
+                </ContentMeta>}
+            </React.Fragment>
         );
     }
 }
