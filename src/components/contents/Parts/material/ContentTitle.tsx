@@ -10,8 +10,13 @@ interface GalapagosProps {
 }
 
 const styles = (theme:Theme) => createStyles({
-    location: {
-        margin: '20px 0 0 40px'
+    title: {
+        margin: '20px 0 0 40px',
+        fontSize: "56px",
+        [theme.breakpoints.down("sm")]: {
+            fontSize: "36px",
+            margin: '10px 0 0 20px'
+        }
     }
 })
 
@@ -23,10 +28,10 @@ class ContentTitle extends React.Component<Props> {
         const titleColor = colorObj.specifiedColor(this.props.titleColor)[500];
         return(
             <span>
-                <Typography variant={'h2'} style={{
+                <Typography style={{
                     color: titleColor
                 }}
-                className={this.props.classes.location}
+                className={this.props.classes.title}
                 >
                     {this.props.titleWord}
                 </Typography>

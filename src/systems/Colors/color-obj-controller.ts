@@ -51,4 +51,10 @@ export default class ColorObjController {
     specifiedColor(colorName: colorName):Color {
         return this._colors[colorName];
     }
+
+    randomColor():Color {
+        const randomKey = Object.keys(this._colors)[Math.floor(Math.random()*Object.keys(this._colors).length)];
+        return this._colors[randomKey];
+    }
+
 }

@@ -3,6 +3,7 @@ import { Card, Theme, createStyles, withStyles, WithStyles } from '@material-ui/
 import { StyleRules } from '@material-ui/core/styles';
 import CloseButton from './material/CloseButton';
 import ContentTitle from './material/ContentTitle';
+import CreatedSentence from './CreatedSentence';
 
 const styles = (theme:Theme):StyleRules => createStyles({
     mainContent: {
@@ -26,6 +27,7 @@ class ContentMain extends React.Component<Props>{
             <Card className={classes.mainContent}>
                 <ContentTitle titleWord={"Created"} titleColor={"red"}>
                 </ContentTitle>
+                <CreatedSentence></CreatedSentence>
                 <CloseButton contentType={"Created"}>
                 </CloseButton>
             </Card>

@@ -12,6 +12,7 @@ import AboutMePropsCreater from '../../../../systems/MainMarks/aboutme-props-cre
 import CreatedPropsCreater from '../../../../systems/MainMarks/created-props-creater';
 import ToolsPropsCreater from '../../../../systems/MainMarks/tools-props-creater';
 import ContactPropsCreater from '../../../../systems/MainMarks/contact-props-creater';
+import ColorObjController from '../../../../systems/Colors/color-obj-controller';
 
 
 const transitionTime_s = 1.2;
@@ -160,10 +161,13 @@ class BackButton extends React.Component<Props> {
 
 
     render(){
+        const colorObj = new ColorObjController();
         return(
             // <KeyboardBackSpace />
             <div className={this.props.classes.position}>
-                <Fab onClick={()=>(this._shrinkContent(this.props))}>
+                <Fab onClick={()=>(this._shrinkContent(this.props))} style={{
+                    backgroundColor: colorObj.randomColor()["500"]
+                }}>
                     <Typography variant={"button"}>
                         Close
                     </Typography>
