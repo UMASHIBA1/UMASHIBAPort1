@@ -71,9 +71,6 @@ class MainMarkMeta extends React.Component<Props>{
         ChangeMainMarkDispatch: ChangeMainMarkDispatch,
         contentType: PropsForStartAnimation["contentType"],
         MainMarkProps: MainMarkProps
-        // word: PropsForStartAnimation["word"],
-        // wordColor: PropsForStartAnimation["wordColor"],
-        // borderColor: PropsForStartAnimation["borderColor"]
         ){
             const {word,wordColor,borderColor} = MainMarkProps;
             const displaySetting = "flex";
@@ -131,13 +128,12 @@ class MainMarkMeta extends React.Component<Props>{
             borderColor,
             rotate,
             zIndex,
-            display,
             shadow,
         } = this.props.mainMarkProps;
         const {ChangeMainMarkDispatch,mainMarkProps: MainMarkProps,ChangeContentDispatch,contentType} = this.props;
         return (
         <React.Fragment>
-            {this.props.mainMarkProps["display"]=="hidden"?<React.Fragment />:
+            {this.props.mainMarkProps["display"]==="hidden"?<React.Fragment />:
             <React.Fragment>
 <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight(MainMarkProps,ChangeMainMarkDispatch,contentType))}></EventListener>
             <Paper elevation={shadow} 

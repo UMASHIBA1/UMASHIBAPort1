@@ -13,3 +13,10 @@ export interface PropsForEndAnimation {
     wordColor: MainMarkProps["wordColor"];
     borderColor: MainMarkProps["borderColor"];
 };
+
+export interface PropsForBackAnimation {
+    contentType: PropsForStartAnimation["contentType"],
+    word: PropsForStartAnimation["word"],
+    wordColor: PropsForStartAnimation["wordColor"],
+    borderColor: PropsForStartAnimation["borderColor"]
+};

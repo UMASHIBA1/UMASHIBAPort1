@@ -11,6 +11,8 @@ export interface noCalculateContentProps {
     zIndex: MainMarkProps["zIndex"];
     shadow: MainMarkProps["shadow"];
     display: MainMarkProps["display"];
+    wordOpacity: CSSProperties["opacity"];
+    displayMainContent: boolean;
 }
 
 export interface hasCalculateContentProps {

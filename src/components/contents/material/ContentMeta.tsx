@@ -2,14 +2,16 @@ import * as React from 'react';
 import {createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import { StyleRules } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
-import { ChangeMainMarkDispatch, ChangeContentDispatch } from '../../types/redux/map-dispatch-to-props';
-// import EventListener from 'react-event-listener';
-// import MainMarkProps from '../../types/common/mainmarks';
-import ColorObjController from '../../systems/Colors/color-obj-controller';
-import ContentProps from '../../types/systems/contents/content';
-import { Dispatch } from 'redux';
-import { ChangeContentAction } from '../../types/redux/actions';
-import ContentPropsCreater from '../../systems/Contents/content-props-creater';
+import { ChangeContentDispatch } from '../../../types/redux/map-dispatch-to-props';
+import ColorObjController from '../../../systems/Colors/color-obj-controller';
+import ContentProps from '../../../types/systems/contents/content';
+import ContentPropsCreater from '../../../systems/Contents/content-props-creater';
+import { contentType } from '../../../types/common/mainmarks';
+import AboutMeMain from '../Parts/AboutMeMain';
+import CreatedMain from '../Parts/CreatedMain';
+import ToolsMain from '../Parts/ToolsMain';
+import ContactMain from '../Parts/ContactMain';
+import EventListener from 'react-event-listener';
 
 const borderStyle = "solid";
 const transitionTime_s = 1.2;
@@ -37,12 +39,13 @@ const styles = (theme:Theme): StyleRules => createStyles({
         borderStyle: borderStyle
     },
     centerWord: {
-        transition: `transform ${rotateTransitionTime_s}s ${rotateTransitionTimingFunction}`,
+        transition: `transform ${rotateTransitionTime_s}s ${rotateTransitionTimingFunction}, opacity ${transitionTime_s}s`,
     }
 })
 
 interface ContentMetaGalapagosType {
     ContentProps: ContentProps;
+    contentType: contentType;
     ChangeContentProps :ChangeContentDispatch;
 }
 
@@ -76,12 +79,35 @@ class ContentMeta extends React.Component<Props>{
                 });
                 setTimeout(()=>{
                     this.props.ChangeContentProps(endAnimationProps);
-                },transitionTime_s*1000)
+                    setTimeout(() => {
+                        const ContentMainCanSee = Object.assign({},endAnimationProps,{displayMainContent:true});
+                        this.props.ChangeContentProps(ContentMainCanSee);
+                    }, (transitionTime_s + 0.2) * 1000);
+                },(rotateTransitionTime_s + 0.4)*1000)
             }, marginTime_ms);
         }
     }
 
 
+    _judgeMainContent(contentType:contentType){
+        if(contentType=="AboutMe"){
+            return (
+                <AboutMeMain></AboutMeMain>
+            );
+        }else if(contentType=="Created"){
+            return(
+                <CreatedMain></CreatedMain>
+            );
+        }else if(contentType=="Tools"){
+            return(
+                <ToolsMain></ToolsMain>
+            );
+        }else{
+            return(
+                <ContactMain></ContactMain>
+            )
+        }
+    }
 
     render(){
         const {
@@ -91,6 +117,8 @@ class ContentMeta extends React.Component<Props>{
             zIndex,
             rotate,
             // display,
+            wordOpacity,
+            displayMainContent,
             top,
             left,
             borderWidth,
@@ -104,6 +132,7 @@ class ContentMeta extends React.Component<Props>{
         } = this.props.ContentProps;
         return (
             <React.Fragment>
+                <EventListener target='window' onResize={()=>(this._judgeMainContent(this.props.contentType))}></EventListener>                    
                 <Paper elevation={24} 
                 className={`${this.props.classes.outline} ${this.props.classes.paper}`}
                 style={{
@@ -136,16 +165,17 @@ class ContentMeta extends React.Component<Props>{
                             borderWidth,
                             borderColor: this._colorObj.specifiedColor(borderColor)[900]
                         }}>
-                            <Typography color={'error'} align={'center'} variant={fontVariant} className={this.props.classes.centerWord} style={{
+                        {wordOpacity==0 && displayMainContent?this._judgeMainContent(this.props.contentType):
+                        <Typography color={'error'} align={'center'} variant={fontVariant} className={this.props.classes.centerWord} style={{
                                 color: wordColor,
-                                transform: `rotate(-${rotate}deg)`
+                                transform: `rotate(-${rotate}deg)`,
+                                opacity: wordOpacity
                             }}>
                                 {word}
-                            </Typography>
+                            </Typography>}
                         </Paper>
                     </Paper>
                 </Paper>
-                {/* <EventListener target='window' onResize={()=>(this._changeTopLeftWidthHeight(this.props.MainMarkProps,this.props.ChangeMainMarkDispatch,this.props.MainMarkCreaterName))}></EventListener> */}
             </React.Fragment>
         );
     }
