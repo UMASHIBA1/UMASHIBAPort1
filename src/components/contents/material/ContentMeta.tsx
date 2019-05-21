@@ -65,6 +65,7 @@ class ContentMeta extends React.Component<Props>{
 
     componentDidMount(){
         if(this.props.ContentProps.display!="hidden"){
+            document.body.style.overflow = "hidden";
             setTimeout(() => {
                 const contentProps = Object.assign({},this.props.ContentProps,{rotate:0});
                 this.props.ChangeContentProps(contentProps);
@@ -86,6 +87,10 @@ class ContentMeta extends React.Component<Props>{
                 },(rotateTransitionTime_s + 0.4)*1000)
             }, marginTime_ms);
         }
+    }
+
+    componentWillUnmount(){
+        document.body.style.overflow = "visible";
     }
 
 

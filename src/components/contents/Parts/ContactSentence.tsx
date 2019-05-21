@@ -45,7 +45,7 @@ class AboutMeSenetence extends React.Component<Props> {
                     メールアドレス: 
                 </Typography>
                 <Typography className={`${this.props.classes.font} ${this.props.classes.oneLine}`}>
-                   umashiba1#gmail.com
+                   umashiba1 # gmail.com
                 </Typography>
                 <Typography className={`${this.props.classes.warningLine}`}>
                     ※#を@に置き換えてください。
@@ -67,7 +67,7 @@ class AboutMeSenetence extends React.Component<Props> {
                 </Typography>
                 <Typography className={`${this.props.classes.font} ${this.props.classes.multiLine}`}>
                     <Link href={'https://github.com/UMASHIBA1/'}>
-                        https://github.com/UMASHIBA1/
+                        UMASHIBA1
                     </Link>
                 </Typography>
             </div>
