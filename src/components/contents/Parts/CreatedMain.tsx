@@ -8,7 +8,8 @@ import CreatedSentence from './CreatedSentence';
 const styles = (theme:Theme):StyleRules => createStyles({
     mainContent: {
         width: "100%",
-        height: "100%"
+        height: "100%",
+        overflow: "auto"
     },
     root: {
         flexGrow: 1,

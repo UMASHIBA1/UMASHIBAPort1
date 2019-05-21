@@ -58,9 +58,9 @@ class AboutMeSenetence extends React.Component<Props> {
                 </Typography>
                 <Typography className={`${this.props.classes.font} ${this.props.classes.oneLine}`}>
                     インターンに行って技術勉強したいと思い、<br />
-                    そのアピールポイントになればと思って作った。<br />
-                    頑張った！<br />
-                    <Link href={"/"}>
+                    そのアピールポイントになればと思って作りました。<br />
+                    頑張りました！<br />
+                    <Link href={"https://github.com/UMASHIBA1/MyPortFolio1"}>
                         GitHub Code Link
                     </Link>
                 </Typography>

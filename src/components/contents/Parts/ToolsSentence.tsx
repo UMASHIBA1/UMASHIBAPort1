@@ -45,7 +45,7 @@ class AboutMeSenetence extends React.Component<Props> {
                     まともに使える言語、FW、開発ツール
                 </Typography>
                 <Typography className={`${this.props.classes.font} ${this.props.classes.oneLine}`}>
-                なし？泣(´;ω;｀)
+                日本語
                 </Typography>
                 <Typography className={`${this.props.classes.subTitle} ${this.props.classes.font}`} style={{
                     color: colorObj.specifiedColor("deepOrange")[500]
@@ -53,7 +53,7 @@ class AboutMeSenetence extends React.Component<Props> {
                     少しは使える言語、FW、開発ツール
                 </Typography>
                 <Typography className={`${this.props.classes.font} ${this.props.classes.oneLine}`}>
-                日本語、JavaScript,Python,Django,VSCode
+                JavaScript,Python,Django,VSCode
                 </Typography>
                 <Typography className={`${this.props.classes.subTitle} ${this.props.classes.font}`} style={{
                     color: colorObj.specifiedColor("deepPurple")[500]
