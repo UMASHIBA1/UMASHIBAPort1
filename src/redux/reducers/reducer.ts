@@ -5,19 +5,21 @@ import { CHANGE_BACKGROUND_SQUARE_PROPS,
     CHANGE_CREATED_PROPS,
     CHANGE_TOOLS_PROPS,
     CHANGE_CONTACT_PROPS,
+    CHANGE_BLOG_PROPS,
     CHANGE_ABOUT_ME_CONTENT_PROPS,
     CHANGE_CREATED_CONTENT_PROPS,
     CHANGE_TOOLS_CONTENT_PROPS,
     CHANGE_CONTACT_CONTENT_PROPS,
-    CHANGE_BLOG_PROPS
+    CHANGE_BLOG_CONTENT_PROPS,
 } from '../constant/action-types';
 import BackgroundController from '../../systems/Background/background-controller';
 import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
 import CreatedPropsCreater from '../../systems/MainMarks/created-props-creater';
 import ToolsPropsCreater from '../../systems/MainMarks/tools-props-creater';
 import ContactPropsCreater from '../../systems/MainMarks/contact-props-creater';
-import ContentProps from '../../types/systems/contents/content';
+import BlogPropsCreater from '../../systems/MainMarks/blog-props-creater';
 import ContentPropsCreater from '../../systems/Contents/content-props-creater';
+import ContentProps from '../../types/systems/contents/content';
 
 const defaultRotate = 45;
 const defaultZIndex = 100;
@@ -61,6 +63,15 @@ const contactObj: ContactPropsCreater = new ContactPropsCreater({
     shadow: defaultShadow,
     display: "flex"
 });
+const blogObj: BlogPropsCreater = new BlogPropsCreater({
+    word: 'Blog',
+    borderColor: 'orange',
+    wordColor: defaultWordColor,
+    rotate: defaultRotate,
+    zIndex: defaultZIndex,
+    shadow: defaultShadow,
+    display: "flex"
+});
 
 const contentCreaterObj:ContentPropsCreater = new ContentPropsCreater();
 
@@ -71,6 +82,7 @@ const aboutMeProps = aboutMeObj.createProps();
 const createdProps = createdObj.createProps();
 const toolsProps = toolsObj.createProps();
 const contactProps = contactObj.createProps();
+const blogProps = blogObj.createProps();
 const aboutMeContentProps: ContentProps = contentCreaterObj.createStartAnimationProps({
     borderColor: "blue",
     contentType: "AboutMe",
@@ -99,6 +111,13 @@ const contactContentProps: ContentProps = contentCreaterObj.createStartAnimation
     wordColor: "purple",
     display: "hidden"
 });
+const blogContentProps: ContentProps = contentCreaterObj.createStartAnimationProps({
+    borderColor: "orange",
+    contentType: "Blog",
+    word: "Blog",
+    wordColor: "orange",
+    display: "hidden"
+});
 
 const initialState: reduxState = {
     backgroundSquareProps,
@@ -106,10 +125,12 @@ const initialState: reduxState = {
     createdProps,
     toolsProps,
     contactProps,
+    blogProps,
     aboutMeContentProps,
     createdContentProps,
     toolsContentProps,
-    contactContentProps
+    contactContentProps,
+    blogContentProps
 };
 
 const rootReducer = (state: reduxState = initialState,action:rootReducerAction) => {
@@ -136,6 +157,8 @@ const rootReducer = (state: reduxState = initialState,action:rootReducerAction) 
             return Object.assign({},state,{toolsContentProps: action.payload});
         case CHANGE_CONTACT_CONTENT_PROPS:
             return Object.assign({},state,{contactContentProps: action.payload});
+        case CHANGE_BLOG_CONTENT_PROPS:
+            return Object.assign({},state,{blogContentProps: action.payload});
         default:
             return state;
         }

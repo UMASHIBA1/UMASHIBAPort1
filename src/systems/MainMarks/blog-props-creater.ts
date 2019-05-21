@@ -36,7 +36,7 @@ export default class BlogPropsCreater extends MainMarksCommonPropsCreater {
         else{
             const topMargin = underBreakPointTopMargin;
             const betweenMargin = underBreakPointBetweenMargin;
-            const verticalIndex = 2;
+            const verticalIndex = 5;
             return{
                 top: topMargin + underBreakPointWidth * (verticalIndex - 1) + betweenMargin * (verticalIndex-1),
                 left: windowWidth/2 - widthHeight/2,

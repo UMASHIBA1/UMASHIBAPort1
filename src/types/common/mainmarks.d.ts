@@ -7,7 +7,8 @@ export type contentType =
 "AboutMe"|
 "Created"|
 "Tools"|
-"Contact";
+"Contact"|
+"Blog";
 
 
 export interface noCalculateMainMarkProps {

@@ -12,6 +12,7 @@ import MainMarkProps, { contentType, noCalculateMainMarkProps } from '../../type
 import { ChangeContentDispatch, ChangeMainMarkDispatch } from '../../types/redux/map-dispatch-to-props';
 import { PropsForStartAnimation } from '../../types/systems/contents/contents-props-creater';
 import { MainMarkPropsCreater } from '../../types/systems/mainmarks/mainmarks-props-creater';
+import BlogPropsCreater from '../../systems/MainMarks/blog-props-creater';
 
 
 const borderStyle = "solid";
@@ -94,8 +95,10 @@ class MainMarkMeta extends React.Component<Props>{
             return new CreatedPropsCreater(nowState);
         }else if(MainMarkCreaterName === "Tools"){
             return new ToolsPropsCreater(nowState);
-        }else{
+        }else if(MainMarkCreaterName === "Contact"){
             return new ContactPropsCreater(nowState);
+        }else{
+            return new BlogPropsCreater(nowState);
         }
     }
 

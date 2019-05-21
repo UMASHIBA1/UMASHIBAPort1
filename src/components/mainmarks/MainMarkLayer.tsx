@@ -5,6 +5,7 @@ import AboutMe from './AboutMe';
 import Created from './Created';
 import Contact from './Contact';
 import Tools from './Tools';
+import Blog from './Blog';
 
 const styles = (theme:Theme): StyleRules => createStyles({
     mainMarkLayer: {
@@ -25,6 +26,7 @@ class MainMarkLayer extends React.Component<Props>{
                 <Created />
                 <Tools />
                 <Contact />
+                <Blog />
             </div>
         )
     }

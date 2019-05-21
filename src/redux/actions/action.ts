@@ -10,6 +10,7 @@ import {
     CHANGE_CREATED_CONTENT_PROPS,
     CHANGE_TOOLS_CONTENT_PROPS,
     CHANGE_CONTACT_CONTENT_PROPS,
+    CHANGE_BLOG_CONTENT_PROPS
 } from '../constant/action-types';
 import { backgroundSquareProp } from '../../types/common/background-square';
 import { 
@@ -19,11 +20,13 @@ import {
     ChangeCreatedPropsAction,
     ChangeToolsPropsAction, 
     ChangeContactPropsAction,
+    ChangeBlogPropsAction,
     ChangeAboutMeContentPropsAction,
     ChangeCreatedContentPropsAction,
     ChangeToolsContentPropsAction,
     ChangeContactContentPropsAction,
-    ChangeBlogPropsAction} from '../../types/redux/actions';
+    ChangeBlogContentPropsAction,
+} from '../../types/redux/actions';
 import MainMarksProps from '../../types/common/mainmarks';
 import ContentProps from '../../types/systems/contents/content';
 
@@ -69,4 +72,8 @@ export const ChangeToolsContentProps = (payload:ContentProps):ChangeToolsContent
 
 export const ChangeContactContentProps = (payload:ContentProps):ChangeContactContentPropsAction => {
     return {type:CHANGE_CONTACT_CONTENT_PROPS,payload};
+}
+
+export const ChangeBlogContentProps = (payload:ContentProps):ChangeBlogContentPropsAction =>{
+    return {type:CHANGE_BLOG_CONTENT_PROPS,payload};
 }

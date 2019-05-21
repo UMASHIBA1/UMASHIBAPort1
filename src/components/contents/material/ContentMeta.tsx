@@ -12,6 +12,7 @@ import CreatedMain from '../Parts/CreatedMain';
 import ToolsMain from '../Parts/ToolsMain';
 import ContactMain from '../Parts/ContactMain';
 import EventListener from 'react-event-listener';
+import Blog from '../../mainmarks/Blog';
 
 const borderStyle = "solid";
 const transitionTime_s = 1.2;
@@ -107,10 +108,12 @@ class ContentMeta extends React.Component<Props>{
             return(
                 <ToolsMain></ToolsMain>
             );
-        }else{
+        }else if(contentType=="Contact"){
             return(
                 <ContactMain></ContactMain>
-            )
+            );
+        }else{
+            return <Blog></Blog>
         }
     }
 

@@ -10,6 +10,7 @@ import {
     TYPE_CHANGE_TOOLS_CONTENT_PROPS,
     TYPE_CHANGE_CONTACT_CONTENT_PROPS,
     TYPE_CHANGE_BLOG_PROPS,
+    TYPE_CHANGE_BLOG_CONTENT_PROPS,
 } from './action-types';
 import { backgroundSquareProp } from '../common/background-square';
 import MainMarkProps from '../common/mainmarks';
@@ -82,9 +83,15 @@ export interface ChangeContactContentPropsAction {
     payload: ContentProps;
 }
 
+export interface ChangeBlogContentPropsAction {
+    type: TYPE_CHANGE_BLOG_CONTENT_PROPS;
+    payload: ContentProps;
+}
+
 
 export type ChangeContentAction = 
 ChangeAboutMeContentPropsAction |
 ChangeCreatedContentPropsAction |
 ChangeToolsContentPropsAction   |
-ChangeContactContentPropsAction;
+ChangeContactContentPropsAction |
+ChangeBlogContentPropsAction;

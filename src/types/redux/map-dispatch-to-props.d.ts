@@ -7,7 +7,9 @@ import {
     ChangeToolsContentPropsAction,
     ChangeContactPropsAction,
     ChangeContactContentPropsAction,
-    ChangeBackgroundSquarePropsAction
+    ChangeBackgroundSquarePropsAction,
+    ChangeBlogPropsAction,
+    ChangeBlogContentPropsAction
 } from "./actions";
 import { 
     ChangeAboutMeContentAndMainMarkProps,
@@ -27,11 +29,14 @@ export type ChangeToolsPropsActionWithDispatch = (payload: ChangeToolsPropsActio
 
 export type ChangeContactPropsActionWithDispatch = (payload: ChangeContactPropsAction.payload) => ChangeContactPropsAction;
 
+export type ChangeBlogPropsActionWithDispatch = (payload:ChangeBlogPropsAction.payload) => ChangeBlogPropsActionWith;
+
 export type ChangeMainMarkDispatch = 
 ChangeAboutMePropsActionWithDispatch|
 ChangeCreatedPropsActionWithDispatch|
 ChangeToolsPropsActionWithDispatch  |
-ChangeContactPropsActionWithDispatch;
+ChangeContactPropsActionWithDispatch|
+ChangeBlogPropsActionWithDispatch;
 
 
 export type ChangeAboutMeContentPropsActionWithDispatch = (payload: ChangeAboutMeContentAction.payload) => ChangeAboutMeContentPropsAction;
@@ -42,8 +47,11 @@ export type ChangeToolsContentPropsActionWithDispatch = (payload: ChangeToolsCon
 
 export type ChangeContactContentPropsActionWithDispatch = (payload: ChangeContactContentPropsAction.payload) => ChangeContactPropsAction;
 
+export type ChangeBlogContentPropsActionWithDispatch = (payload: ChangeBlogContentPropsAction.payload) => ChangeBlogContentPropsAction;
+
 export type ChangeContentDispatch = 
 ChangeAboutMeContentPropsActionWithDispatch|
 ChangeCreatedContentPropsActionWithDispatch|
 ChangeToolsContentPropsActionWithDispatch|
-ChangeContactContentPropsActionWithDispatch;
+ChangeContactContentPropsActionWithDispatch|
+ChangeBlogContentPropsActionWithDispatch;

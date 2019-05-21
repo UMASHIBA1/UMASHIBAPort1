@@ -3,6 +3,7 @@ import AboutMePropsCreater from '../../../systems/MainMarks/aboutme-props-create
 import ContactPropsCreater from '../../../systems/MainMarks/contact-props-creater';
 import CreatedPropsCreater from '../../../systems/MainMarks/created-props-creater';
 import ToolsPropsCreater from '../../../systems/MainMarks/tools-props-creater';
+import BlogPropsCreater from '../../../systems/MainMarks/blog-props-creater';
 
 export interface allCommonPropTypes {
     widthHeight: MainMarkProps.widthHeight;
@@ -21,4 +22,5 @@ export type MainMarkPropsCreater =
 AboutMePropsCreater |
 CreatedPropsCreater |
 ToolsPropsCreater |
-ContactPropsCreater;
+ContactPropsCreater|
+BlogPropsCreater;

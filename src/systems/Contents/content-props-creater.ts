@@ -6,6 +6,7 @@ import CreatedPropsCreater from "../MainMarks/created-props-creater";
 import ToolsPropsCreater from "../MainMarks/tools-props-creater";
 import ContactPropsCreater from "../MainMarks/contact-props-creater";
 import MainMarkProps from "../../types/common/mainmarks";
+import BlogPropsCreater from "../MainMarks/blog-props-creater";
 
 
 export default class ContentPropsCreater {
@@ -17,8 +18,10 @@ export default class ContentPropsCreater {
             return new CreatedPropsCreater(props).createProps();
         }else if(type==="Tools"){
             return new ToolsPropsCreater(props).createProps();
-        }else{
+        }else if (type==="Contact"){
             return new ContactPropsCreater(props).createProps();
+        }else{
+            return new BlogPropsCreater(props).createProps()
         }
     }
 
