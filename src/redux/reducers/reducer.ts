@@ -8,7 +8,8 @@ import { CHANGE_BACKGROUND_SQUARE_PROPS,
     CHANGE_ABOUT_ME_CONTENT_PROPS,
     CHANGE_CREATED_CONTENT_PROPS,
     CHANGE_TOOLS_CONTENT_PROPS,
-    CHANGE_CONTACT_CONTENT_PROPS
+    CHANGE_CONTACT_CONTENT_PROPS,
+    CHANGE_BLOG_PROPS
 } from '../constant/action-types';
 import BackgroundController from '../../systems/Background/background-controller';
 import AboutMePropsCreater from '../../systems/MainMarks/aboutme-props-creater';
@@ -109,55 +110,6 @@ const initialState: reduxState = {
     createdContentProps,
     toolsContentProps,
     contactContentProps
-    // {
-    //     borderColor: "green",
-    //     word: "Yoo Ho",
-    //     wordColor: "grey",
-    //     zIndex: 200,
-    //     rotate: "45deg",
-    //     display: "flex",
-    //     shadow: 24,
-    //     top: 300,
-    //     left: 300,
-    //     borderWidth: 7,
-    //     width: 100,
-    //     height: 100,
-    //     secondWidth: 90,
-    //     secondHeight: 90,
-    //     thirdWidth: 80,
-    //     thirdHeight: 80
-    // }
-    
-    // example of backgroundSquareProps
-    // [
-    //     {
-    //         id: 1,
-    //         colorName: colorObj.randomColor(),
-    //         word: 'hey',
-    //         sideLength:200,
-    //         zindex: 6,
-    //         top: 41.42,
-    //         left: 42.42,
-    //     },
-    //     {
-    //         id:2,
-    //         colorName: colorObj.randomColor(),
-    //         word: 'hello',
-    //         sideLength: 300,
-    //         zindex: 5,
-    //         top: 62.13,
-    //         left: 141.42,
-    //     },
-    //     {
-    //         id:3,
-    //         colorName: colorObj.randomColor(),
-    //         word: 'good bye',
-    //         sideLength: 400,
-    //         zindex: 4,
-    //         top: 400,
-    //         left: 400,
-    //     }
-    // ]
 };
 
 const rootReducer = (state: reduxState = initialState,action:rootReducerAction) => {
@@ -174,6 +126,8 @@ const rootReducer = (state: reduxState = initialState,action:rootReducerAction) 
             return Object.assign({},state,{toolsProps: action.payload});
         case CHANGE_CONTACT_PROPS:
             return Object.assign({},state,{contactProps: action.payload});
+        case CHANGE_BLOG_PROPS:
+            return Object.assign({},state,{blogProps: action.payload});
         case CHANGE_ABOUT_ME_CONTENT_PROPS:
             return Object.assign({},state,{aboutMeContentProps: action.payload});
         case CHANGE_CREATED_CONTENT_PROPS:
