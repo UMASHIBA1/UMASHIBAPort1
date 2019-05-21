@@ -16,7 +16,8 @@ const styles = (theme:Theme) :StyleRules => createStyles({
         justifyContent: "center"
     },
     outline: {
-        transform: `rotate(${tiltAngle})`,
+        top: 0,
+        left: 0,
     },
     centerWord: {
         position: "absolute",
@@ -43,8 +44,8 @@ class BackgroundSquare extends React.Component <Props>{
                 width: this.props.sideLength,
                 height: this.props.sideLength,
                 zIndex: this.props.zindex,
-                top: this.props.top,
-                left: this.props.left
+
+                transform: `translate(${this.props.left}px,${this.props.top}px) rotate(${tiltAngle})`
                 }}>
                 <Paper className={this.props.classes.paper}
                 style={{
