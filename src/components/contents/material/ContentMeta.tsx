@@ -11,8 +11,8 @@ import AboutMeMain from '../Parts/AboutMeMain';
 import CreatedMain from '../Parts/CreatedMain';
 import ToolsMain from '../Parts/ToolsMain';
 import ContactMain from '../Parts/ContactMain';
+import BlogMain from '../Parts/BlogMain';
 import EventListener from 'react-event-listener';
-import Blog from '../../mainmarks/Blog';
 
 const borderStyle = "solid";
 const transitionTime_s = 1.2;
@@ -113,7 +113,7 @@ class ContentMeta extends React.Component<Props>{
                 <ContactMain></ContactMain>
             );
         }else{
-            return <Blog></Blog>
+            return <BlogMain></BlogMain>
         }
     }
 

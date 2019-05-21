@@ -7,6 +7,7 @@ import ToolsContent from './ToolsContent';
 import ContactContent from './ContactContent';
 import { reduxState } from '../../types/redux/reducer';
 import { connect } from 'react-redux';
+import BlogContent from './BlogContent';
 
 const styles = (theme:Theme): StyleRules => createStyles({
     mainMarkLayer: {
@@ -34,6 +35,7 @@ class ContentLayer extends React.Component<Props>{
                 <CreatedContent />
                 <ToolsContent />
                 <ContactContent />
+                <BlogContent />
             </div>
         )
     }

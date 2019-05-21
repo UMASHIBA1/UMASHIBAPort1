@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Theme, Fab, Typography } from '@material-ui/core';
 import { StyleRules, createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import { Dispatch } from 'redux';
-import { ChangeAboutMeContentPropsAction, ChangeCreatedContentPropsAction, ChangeToolsContentPropsAction, ChangeContactContentPropsAction, ChangeAboutMePropsAction, ChangeCreatedPropsAction, ChangeToolsPropsAction, ChangeContactPropsAction } from '../../../../types/redux/actions';
-import { ChangeAboutMeContentProps, ChangeCreaetedContentProps, ChangeToolsContentProps, ChangeContactContentProps, ChangeAboutMeProps, ChangeCreatedProps, ChangeToolsProps, ChangeContactProps } from '../../../../redux/actions/action';
+import { ChangeAboutMeContentPropsAction, ChangeCreatedContentPropsAction, ChangeToolsContentPropsAction, ChangeContactContentPropsAction, ChangeAboutMePropsAction, ChangeCreatedPropsAction, ChangeToolsPropsAction, ChangeContactPropsAction, ChangeBlogContentPropsAction, ChangeBlogPropsAction } from '../../../../types/redux/actions';
+import { ChangeAboutMeContentProps, ChangeCreaetedContentProps, ChangeToolsContentProps, ChangeContactContentProps, ChangeAboutMeProps, ChangeCreatedProps, ChangeToolsProps, ChangeContactProps, ChangeBlogContentProps, ChangeBlogProps } from '../../../../redux/actions/action';
 import MainMarkProps, { contentType } from '../../../../types/common/mainmarks';
 import ContentPropsCreater from '../../../../systems/Contents/content-props-creater';
 import { reduxState } from '../../../../types/redux/reducer';
@@ -13,6 +13,7 @@ import CreatedPropsCreater from '../../../../systems/MainMarks/created-props-cre
 import ToolsPropsCreater from '../../../../systems/MainMarks/tools-props-creater';
 import ContactPropsCreater from '../../../../systems/MainMarks/contact-props-creater';
 import ColorObjController from '../../../../systems/Colors/color-obj-controller';
+import BlogPropsCreater from '../../../../systems/MainMarks/blog-props-creater';
 
 
 const transitionTime_s = 1.2;
@@ -32,13 +33,15 @@ interface GalapagosProps {
 
 const mapDispatchToProps = (dispatch:Dispatch) => ({
     ChangeAboutMeContentProps: (payload:ChangeAboutMeContentPropsAction["payload"]) => (dispatch(ChangeAboutMeContentProps(payload))),
+    ChangeCreatedProps: (payload: ChangeCreatedPropsAction["payload"]) => (dispatch(ChangeCreatedProps(payload))),
+    ChangeToolsProps: (payload: ChangeToolsPropsAction["payload"]) => (dispatch(ChangeToolsProps(payload))),
+    ChangeContactProps: (payload: ChangeContactPropsAction["payload"]) => (dispatch(ChangeContactProps(payload))),
+    ChangeBlogProps: (payload: ChangeBlogPropsAction["payload"]) => (dispatch(ChangeBlogProps(payload))),
     ChangeCreatedContentProps: (payload:ChangeCreatedContentPropsAction["payload"]) => (dispatch(ChangeCreaetedContentProps(payload))),
     ChangeToolsContentProps: (payload:ChangeToolsContentPropsAction["payload"]) => (dispatch(ChangeToolsContentProps(payload))),
     ChangeContactContentProps: (payload:ChangeContactContentPropsAction["payload"]) => (dispatch(ChangeContactContentProps(payload))),
+    ChangeBlogContentProps: (payload:ChangeBlogContentPropsAction["payload"]) => (dispatch(ChangeBlogContentProps(payload))),
     ChangeAboutMeProps: (payload: ChangeAboutMePropsAction["payload"]) => (dispatch(ChangeAboutMeProps(payload))),
-    ChangeCreatedProps: (payload: ChangeCreatedPropsAction["payload"]) => (dispatch(ChangeCreatedProps(payload))),
-    ChangeToolsProps: (payload: ChangeToolsPropsAction["payload"]) => (dispatch(ChangeToolsProps(payload))),
-    ChangeContactProps: (payload: ChangeContactPropsAction["payload"]) => (dispatch(ChangeContactProps(payload)))
 });
 
 const mapStateToProps = (state:reduxState) => ({
@@ -46,10 +49,12 @@ const mapStateToProps = (state:reduxState) => ({
     createdProps: state.createdProps,
     toolsProps: state.toolsProps,
     contactProps: state.contactProps,
+    blogProps: state.blogProps,
     aboutMeContentProps: state.aboutMeContentProps,
     createdContentProps: state.createdContentProps,
     toolsContentProps: state.toolsContentProps,
-    contactContentProps: state.contactContentProps
+    contactContentProps: state.contactContentProps,
+    blogContentProps: state.blogContentProps
 });
 
 type Props = 
@@ -116,7 +121,7 @@ class BackButton extends React.Component<Props> {
                 display: "flex"
             });
             mainMarkProp = mainMarkCreater.createProps();
-        }else{
+        }else if(props.contentType==="Contact"){
             state = props.contactContentProps;
             mainMarkState = props.contactProps;
             dispatchContent = props.ChangeContactContentProps;
@@ -124,6 +129,22 @@ class BackButton extends React.Component<Props> {
             const mainMarkCreater:ContactPropsCreater = new ContactPropsCreater({
                 word: 'Contact',
                 borderColor: 'purple',
+                wordColor: defaultWordColor,
+                rotate: defaultRotate,
+                zIndex: defaultZIndex,
+                shadow: defaultShadow,
+                display: "flex"
+            });
+            mainMarkProp = mainMarkCreater.createProps();
+        }
+        else {
+            state = props.blogContentProps;
+            mainMarkState = props.blogProps;
+            dispatchContent = props.ChangeBlogContentProps;
+            dispatchMainmark = props.ChangeBlogProps;
+            const mainMarkCreater:BlogPropsCreater = new BlogPropsCreater({
+                word: 'Blog',
+                borderColor: 'orange',
                 wordColor: defaultWordColor,
                 rotate: defaultRotate,
                 zIndex: defaultZIndex,
