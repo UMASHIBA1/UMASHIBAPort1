@@ -2,8 +2,30 @@ import * as React from 'react';
 import { Theme, Fab, Typography } from '@material-ui/core';
 import { StyleRules, createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import { Dispatch } from 'redux';
-import { ChangeAboutMeContentPropsAction, ChangeCreatedContentPropsAction, ChangeToolsContentPropsAction, ChangeContactContentPropsAction, ChangeAboutMePropsAction, ChangeCreatedPropsAction, ChangeToolsPropsAction, ChangeContactPropsAction, ChangeBlogContentPropsAction, ChangeBlogPropsAction } from '../../../../types/redux/actions';
-import { ChangeAboutMeContentProps, ChangeCreaetedContentProps, ChangeToolsContentProps, ChangeContactContentProps, ChangeAboutMeProps, ChangeCreatedProps, ChangeToolsProps, ChangeContactProps, ChangeBlogContentProps, ChangeBlogProps } from '../../../../redux/actions/action';
+import { 
+    ChangeAboutMeContentPropsAction, 
+    ChangeCreatedContentPropsAction, 
+    ChangeToolsContentPropsAction, 
+    ChangeContactContentPropsAction, 
+    ChangeAboutMePropsAction, 
+    ChangeCreatedPropsAction, 
+    ChangeToolsPropsAction, 
+    ChangeContactPropsAction, 
+    ChangeBlogContentPropsAction, 
+    ChangeBlogPropsAction 
+} from '../../../../types/redux/actions';
+import { 
+    ChangeAboutMeContentProps,
+    ChangeCreaetedContentProps, 
+    ChangeToolsContentProps, 
+    ChangeContactContentProps, 
+    ChangeAboutMeProps, 
+    ChangeCreatedProps, 
+    ChangeToolsProps, 
+    ChangeContactProps, 
+    ChangeBlogContentProps, 
+    ChangeBlogProps 
+} from '../../../../redux/actions/action';
 import MainMarkProps, { contentType } from '../../../../types/common/mainmarks';
 import ContentPropsCreater from '../../../../systems/Contents/content-props-creater';
 import { reduxState } from '../../../../types/redux/reducer';
@@ -14,6 +36,7 @@ import ToolsPropsCreater from '../../../../systems/MainMarks/tools-props-creater
 import ContactPropsCreater from '../../../../systems/MainMarks/contact-props-creater';
 import ColorObjController from '../../../../systems/Colors/color-obj-controller';
 import BlogPropsCreater from '../../../../systems/MainMarks/blog-props-creater';
+import { colorName } from '../../../../types/systems/colors/color-word-controller';
 
 
 const transitionTime_s = 1.2;
@@ -64,10 +87,10 @@ ReturnType<typeof mapStateToProps> &
 GalapagosProps;
 
 
-const defaultRotate = 45;
-const defaultZIndex = 100;
-const defaultWordColor = 'grey'
-const defaultShadow = 12;
+const defaultRotate:number = 45;
+const defaultZIndex:number = 100;
+const defaultWordColor:colorName = 'grey'
+const defaultShadow:number = 12;
 class BackButton extends React.Component<Props> {
 
     private _judgeStateAndDispatch(props:Props){
@@ -159,7 +182,7 @@ class BackButton extends React.Component<Props> {
 
     private _shrinkContent(props:Props):void{
 
-        const {state,mainMarkState,dispatchContent,dispatchMainmark,mainMarkProp} = this._judgeStateAndDispatch(props);
+        const {state,dispatchContent,dispatchMainmark,mainMarkProp} = this._judgeStateAndDispatch(props);
             const calcObj = new ContentPropsCreater();
             const animationProps = {
                 contentType:props.contentType,
@@ -184,7 +207,6 @@ class BackButton extends React.Component<Props> {
     render(){
         const colorObj = new ColorObjController();
         return(
-            // <KeyboardBackSpace />
             <div className={this.props.classes.position}>
                 <Fab onClick={()=>(this._shrinkContent(this.props))} style={{
                     backgroundColor: colorObj.randomColor()["500"]

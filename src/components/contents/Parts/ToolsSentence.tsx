@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Typography, createStyles, Theme, Link } from '@material-ui/core';
+import { Typography, createStyles, Theme } from '@material-ui/core';
 import { StyleRules, WithStyles, withStyles } from '@material-ui/core/styles';
 import ColorObjController from '../../../systems/Colors/color-obj-controller';
 
@@ -36,7 +36,7 @@ type Props = WithStyles<typeof styles>;
 class AboutMeSenetence extends React.Component<Props> {
     
     render(){
-        const colorObj = new ColorObjController();
+        const colorObj:ColorObjController = new ColorObjController();
         return(
             <div>
                 <Typography className={`${this.props.classes.subTitle} ${this.props.classes.font}`} style={{
@@ -50,7 +50,7 @@ class AboutMeSenetence extends React.Component<Props> {
                 <Typography className={`${this.props.classes.subTitle} ${this.props.classes.font}`} style={{
                     color: colorObj.specifiedColor("deepOrange")[500]
                 }}>
-                    少しは使える言語、FW、開発ツール
+                    多少は使える言語、FW、開発ツール
                 </Typography>
                 <Typography className={`${this.props.classes.font} ${this.props.classes.oneLine}`}>
                 JavaScript, Python, Django, VSCode
@@ -58,10 +58,10 @@ class AboutMeSenetence extends React.Component<Props> {
                 <Typography className={`${this.props.classes.subTitle} ${this.props.classes.font}`} style={{
                     color: colorObj.specifiedColor("deepPurple")[500]
                 }}>
-                    おいおい大丈夫か?レベル
+                    一応使ったことがあるレベル
                 </Typography>
                 <Typography className={`${this.props.classes.font} ${this.props.classes.multiLine}`}>
-                英語,GitHub, heroku, React, Redux, Heroku, TypeScript             
+                英語,GitHub, React, Redux, Heroku, TypeScript             
                 </Typography>
             </div>
         )

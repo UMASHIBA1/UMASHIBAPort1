@@ -4,6 +4,7 @@ import MainMarksCommonPropsCreater from "./mainmarks-props-creater";
 import { allCommonPropTypes, topLeft } from "../../types/systems/mainmarks/mainmarks-props-creater";
 import { underBreakPointWidth, underBreakPointTopMargin, underBreakPointBetweenMargin } from "../../settings/mainmarks/mainmarks";
 import BackgroundController from "../Background/background-controller";
+import { LocationXY } from "../../types/systems/background/background-common";
 
 
 export default class ToolsPropsCreater extends MainMarksCommonPropsCreater {
@@ -22,20 +23,20 @@ export default class ToolsPropsCreater extends MainMarksCommonPropsCreater {
             };
         }
         else if(windowWidth > secondBreakpointWidth){
-            const backgroundObj = new BackgroundController();
-            const YIndex = -1;
-            const XIndex = 1;
-            const backgroundSideLength = backgroundObj.calculateSquareSideLength();
-            const {X,Y} = backgroundObj.calculateCenterLocation();
-            const diffentOfBackgroundAndMark = backgroundSideLength - widthHeight;
+            const backgroundObj:BackgroundController = new BackgroundController();
+            const YIndex:number = -1;
+            const XIndex:number = 1;
+            const backgroundSideLength:number = backgroundObj.calculateSquareSideLength();
+            const {X,Y}:LocationXY = backgroundObj.calculateCenterLocation();
+            const diffentOfBackgroundAndMark:number = backgroundSideLength - widthHeight;
             return{
                 top: Y + (root2 * backgroundSideLength) * YIndex / 2 + diffentOfBackgroundAndMark/2,
                 left: X + (root2 * backgroundSideLength) * XIndex / 2 + diffentOfBackgroundAndMark/2,
             };
         }else{
-            const topMargin = underBreakPointTopMargin;
-            const betweenMargin = underBreakPointBetweenMargin;
-            const verticalIndex = 3;
+            const topMargin:number = underBreakPointTopMargin;
+            const betweenMargin:number = underBreakPointBetweenMargin;
+            const verticalIndex:number = 3;
             return{
                 top: topMargin + underBreakPointWidth * (verticalIndex - 1) + betweenMargin * (verticalIndex-1),
                 left: windowWidth/2 - widthHeight/2,
@@ -45,8 +46,8 @@ export default class ToolsPropsCreater extends MainMarksCommonPropsCreater {
 
 
     createProps(){
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
+        const windowWidth:number = window.innerWidth;
+        const windowHeight:number = window.innerHeight;
         const commonProps:allCommonPropTypes = this._calculateCommonProps(windowWidth,windowHeight);
         const topLeft:topLeft = this._calculateTopAndLeft(commonProps.widthHeight,windowWidth,windowHeight);
         return Object.assign(commonProps,topLeft,this.props);

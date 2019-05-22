@@ -68,21 +68,21 @@ class ContentMeta extends React.Component<Props>{
         if(this.props.ContentProps.display!="hidden"){
             document.body.style.overflow = "hidden";
             setTimeout(() => {
-                const contentProps = Object.assign({},this.props.ContentProps,{rotate:0});
+                const contentProps: ContentProps = Object.assign({},this.props.ContentProps,{rotate:0});
                 this.props.ChangeContentProps(contentProps);
                 const {
                     word,
                     wordColor,
                     borderColor
                 } = this.props.ContentProps;
-                const contentObj = new ContentPropsCreater();
-                const endAnimationProps = contentObj.createEndContentProps({
+                const contentObj: ContentPropsCreater = new ContentPropsCreater();
+                const endAnimationProps: ContentProps = contentObj.createEndContentProps({
                     word,wordColor,borderColor
                 });
                 setTimeout(()=>{
                     this.props.ChangeContentProps(endAnimationProps);
                     setTimeout(() => {
-                        const ContentMainCanSee = Object.assign({},endAnimationProps,{displayMainContent:true});
+                        const ContentMainCanSee:ContentProps = Object.assign({},endAnimationProps,{displayMainContent:true});
                         this.props.ChangeContentProps(ContentMainCanSee);
                     }, (transitionTime_s + 0.2) * 1000);
                 },(rotateTransitionTime_s + 0.4)*1000)
@@ -124,7 +124,6 @@ class ContentMeta extends React.Component<Props>{
             wordColor,
             zIndex,
             rotate,
-            // display,
             wordOpacity,
             displayMainContent,
             top,

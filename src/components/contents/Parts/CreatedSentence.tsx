@@ -36,7 +36,7 @@ type Props = WithStyles<typeof styles>;
 class AboutMeSenetence extends React.Component<Props> {
     
     render(){
-        const colorObj = new ColorObjController();
+        const colorObj: ColorObjController = new ColorObjController();
         return(
             <div>
                 <Typography className={`${this.props.classes.subTitle} ${this.props.classes.font}`} style={{
@@ -59,7 +59,7 @@ class AboutMeSenetence extends React.Component<Props> {
                 <Typography className={`${this.props.classes.font} ${this.props.classes.oneLine}`}>
                     インターンに行って技術勉強したいと思い、<br />
                     その際のアピールポイントになればと思って作りました。<br />
-                    頑張りました！<br />
+                    見ていて楽しいポートフォリオになるように頑張りました！<br />
                     <Link href={"https://github.com/UMASHIBA1/MyPortFolio1"}>
                         GitHub Code Link
                     </Link>

@@ -25,9 +25,9 @@ export default class AboutMePropsCreater extends MainMarksCommonPropsCreater {
                 left: windowWidth/2 - widthHeight/2,
             };
         }else{
-            const topMargin = underBreakPointTopMargin;
-            const betweenMargin = underBreakPointBetweenMargin;
-            const verticalIndex = 1;
+            const topMargin:number = underBreakPointTopMargin;
+            const betweenMargin:number = underBreakPointBetweenMargin;
+            const verticalIndex:number = 1;
             return{
                 top: topMargin + underBreakPointWidth * (verticalIndex - 1) + betweenMargin * (verticalIndex-1),
                 left: windowWidth/2 - widthHeight/2,

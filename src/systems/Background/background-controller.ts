@@ -3,6 +3,7 @@ import { firstBreakpointWidth } from '../../settings/common-setting';
 import BGSquareLocationCalcurator from './BG-square-location-calcurator';
 import ColorWordController from '../Colors/color-word-controller';
 import { backgroundSquareProp } from '../../types/common/background-square';
+import { upperBreakpointHorizontalSquareNum, underBreakpointHorizontalSquareNum } from '../../settings/background/background';
 export default class BackgroundController {
 
     private  _windowWidth: number;
@@ -27,10 +28,10 @@ export default class BackgroundController {
 
     private _judgeHorizontalSquareNum(): number{
         if(this._windowWidth > firstBreakpointWidth){
-            return 5;
+            return upperBreakpointHorizontalSquareNum;
         }        
         else{
-            return 3;
+            return underBreakpointHorizontalSquareNum;
         }
     }
 

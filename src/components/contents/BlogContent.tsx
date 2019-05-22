@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { reduxState } from '../../types/redux/reducer';
 import { Dispatch } from 'redux';
-import { ChangeAboutMeContentProps, ChangeBlogContentProps } from '../../redux/actions/action';
-import { ChangeAboutMeContentPropsAction, ChangeBlogContentPropsAction, } from '../../types/redux/actions';
+import { ChangeBlogContentProps } from '../../redux/actions/action';
+import { ChangeBlogContentPropsAction, } from '../../types/redux/actions';
 import { connect } from 'react-redux';
 import ContentMeta from './material/ContentMeta';
 

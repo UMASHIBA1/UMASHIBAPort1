@@ -1,10 +1,10 @@
-export const upperBreakPointWidthPercent = 0.3;
-export const middleBreakPointWidthPercent = 0.333;
-export const underBreakPointWidth = 160;
+export const upperBreakPointWidthPercent:number = 0.3;
+export const middleBreakPointWidthPercent:number = 0.333;
+export const underBreakPointWidth:number = 160;
 
-export const underBreakPointTopMargin = 40;
-export const underBreakPointBetweenMargin = 80;
+export const underBreakPointTopMargin:number = 40;
+export const underBreakPointBetweenMargin:number = 80;
 
 
-export const firstBorderWidth = 7;
-export const secondBorderWidth = 5;
+export const firstBorderWidth:number = 7;
+export const secondBorderWidth:number = 5;

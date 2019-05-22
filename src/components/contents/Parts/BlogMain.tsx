@@ -3,7 +3,6 @@ import { Card, Theme, createStyles, withStyles, WithStyles } from '@material-ui/
 import { StyleRules } from '@material-ui/core/styles';
 import CloseButton from './material/CloseButton';
 import ContentTitle from './material/ContentTitle';
-import AboutMeSentence from './AboutMeSentence';
 import BlogSentence from './BlogSentence';
 
 const styles = (theme:Theme):StyleRules => createStyles({

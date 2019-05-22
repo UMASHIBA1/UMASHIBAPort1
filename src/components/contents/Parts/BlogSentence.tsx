@@ -28,7 +28,7 @@ type Props = WithStyles<typeof styles>;
 class BlogSentence extends React.Component<Props> {
     
     render(){
-        const colorObj = new ColorObjController();
+        const colorObj: ColorObjController = new ColorObjController();
         return(
             <div>
                 <Typography className={`${this.props.classes.subTitle} ${this.props.classes.font}`} style={{
