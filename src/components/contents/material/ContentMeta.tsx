@@ -65,7 +65,7 @@ class ContentMeta extends React.Component<Props>{
 
 
     componentDidMount(){
-        if(this.props.ContentProps.display!="hidden"){
+        if(this.props.ContentProps.display!=="hidden"){
             document.body.style.overflow = "hidden";
             setTimeout(() => {
                 const contentProps: ContentProps = Object.assign({},this.props.ContentProps,{rotate:0});
@@ -96,19 +96,19 @@ class ContentMeta extends React.Component<Props>{
 
 
     _judgeMainContent(contentType:contentType){
-        if(contentType=="AboutMe"){
+        if(contentType==="AboutMe"){
             return (
                 <AboutMeMain></AboutMeMain>
             );
-        }else if(contentType=="Created"){
+        }else if(contentType==="Created"){
             return(
                 <CreatedMain></CreatedMain>
             );
-        }else if(contentType=="Tools"){
+        }else if(contentType==="Tools"){
             return(
                 <ToolsMain></ToolsMain>
             );
-        }else if(contentType=="Contact"){
+        }else if(contentType==="Contact"){
             return(
                 <ContactMain></ContactMain>
             );
@@ -172,7 +172,7 @@ class ContentMeta extends React.Component<Props>{
                             borderWidth,
                             borderColor: this._colorObj.specifiedColor(borderColor)[900]
                         }}>
-                        {wordOpacity==0 && displayMainContent?this._judgeMainContent(this.props.contentType):
+                        {wordOpacity===0 && displayMainContent?this._judgeMainContent(this.props.contentType):
                         <Typography color={'error'} align={'center'} variant={fontVariant} className={this.props.classes.centerWord} style={{
                                 color: wordColor,
                                 transform: `rotate(-${rotate}deg)`,

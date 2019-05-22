@@ -40,8 +40,8 @@ export default class AboutMePropsCreater extends MainMarksCommonPropsCreater {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         const commonProps:allCommonPropTypes = this._calculateCommonProps(windowWidth,windowHeight);
-        const topLeft:topLeft = this._calculateTopAndLeft(commonProps.widthHeight,windowWidth,windowHeight);
-        return Object.assign(commonProps,topLeft,this.props);
+        const location:topLeft = this._calculateTopAndLeft(commonProps.widthHeight,windowWidth,windowHeight);
+        return Object.assign(commonProps,location,this.props);
     }
 
 }

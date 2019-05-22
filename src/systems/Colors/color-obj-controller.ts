@@ -48,8 +48,8 @@ export default class ColorObjController {
     }
 
 
-    specifiedColor(colorName: colorName):Color {
-        return this._colors[colorName];
+    specifiedColor(color: colorName):Color {
+        return this._colors[color];
     }
 
     randomColor():Color {
