@@ -40,8 +40,15 @@ export default class BackgroundController {
     }
 
     private _calculateVerticalSquareNum(): number{
+        // ↓based common screen height
+        const supposeMaxHeight_px: number = 1080;
+        // ↓based iPhone4 width
+        const supposeMinWidth_px: number = 320;
+        // defaultNum need for beautiful animation.  
+        const defaultNum:number = Math.ceil(supposeMaxHeight_px / Math.floor(supposeMinWidth_px / underBreakpointHorizontalSquareNum - 1));
         const squareHeight: number = this._squareWidthAndHeight;
-        return Math.ceil(this._windowHeight/squareHeight)+1;
+        const calculateNum: number = Math.ceil(this._windowHeight/squareHeight)+1;
+        return calculateNum > defaultNum?calculateNum:defaultNum;
     }
 
     public calculateSquareSideLength(): number{
