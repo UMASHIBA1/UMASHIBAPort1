@@ -1,7 +1,7 @@
 {
   "name": "portfolio4",
   "version": "0.1.0",
-  "homepage": "https://umashiba1.github.io/MyPortFolio1/",
+  "homepage": "https://portfolio.umashiba.dev/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
