@@ -26,6 +26,7 @@ export default class ColorWordController{
                     ]
     }
 
+    
     randomWarmColorWord():warmColorName{
         const warmColors:warmColorName[] = [
             "red",
