@@ -24,6 +24,7 @@ const rotateTransitionTimingFunction = "cubic-bezier(0.2, -0.19, 0.99, -0.61)"
 const styles = (theme:Theme): StyleRules => createStyles({
     paper: {
         transition: `top ${transitionTime_s}s, left ${transitionTime_s}s, width ${transitionTime_s}s, height ${transitionTime_s}s, border-width ${transitionTime_s}s, transform ${rotateTransitionTime_s}s ${rotateTransitionTimingFunction}`,
+        transform: 'translate3d(0,0,0)',
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -70,22 +71,23 @@ class ContentMeta extends React.Component<Props>{
             setTimeout(() => {
                 const contentProps: ContentProps = Object.assign({},this.props.ContentProps,{rotate:0});
                 this.props.ChangeContentProps(contentProps);
-                const {
-                    word,
-                    wordColor,
-                    borderColor
-                } = this.props.ContentProps;
-                const contentObj: ContentPropsCreater = new ContentPropsCreater();
-                const endAnimationProps: ContentProps = contentObj.createEndContentProps({
-                    word,wordColor,borderColor
-                });
                 setTimeout(()=>{
+                    const {
+                        word,
+                        wordColor,
+                        borderColor
+                    } = this.props.ContentProps;
+                    const contentObj: ContentPropsCreater = new ContentPropsCreater();
+                    const endAnimationProps: ContentProps = contentObj.createEndContentProps({
+                        word,wordColor,borderColor
+                    });
                     this.props.ChangeContentProps(endAnimationProps);
+                    
                     setTimeout(() => {
                         const ContentMainCanSee:ContentProps = Object.assign({},endAnimationProps,{displayMainContent:true});
                         this.props.ChangeContentProps(ContentMainCanSee);
                     }, (transitionTime_s + 0.2) * 1000);
-                },(rotateTransitionTime_s + 0.4)*1000)
+                },(rotateTransitionTime_s + 0.4)*1000);
             }, marginTime_ms);
         }
     }
@@ -137,10 +139,11 @@ class ContentMeta extends React.Component<Props>{
             thirdHeight,
             fontVariant
         } = this.props.ContentProps;
+        console.log((width=="100%" && height == "100%")?`translate(${top}, ${left})`:`rotate(${rotate}deg) translate(${top}, ${left})`);
         return (
             <React.Fragment>
                 <EventListener target='window' onResize={()=>(this._judgeMainContent(this.props.contentType))}></EventListener>                    
-                <Paper elevation={24} 
+                <Paper elevation={24}  
                 className={`${this.props.classes.outline} ${this.props.classes.paper}`}
                 style={{
                     top,
@@ -149,8 +152,8 @@ class ContentMeta extends React.Component<Props>{
                     height: height,
                     borderWidth,
                     borderColor: this._colorObj.specifiedColor(borderColor)[300],
-                    transform: `rotate(${rotate}deg)`,
-                    zIndex
+                    transform: `rotate(${rotate}deg)`, 
+                    zIndex,
                 }}
                 >
                     <Paper className={`${this.props.classes.paper} ${this.props.classes.second}`}
@@ -160,7 +163,7 @@ class ContentMeta extends React.Component<Props>{
                         width: secondWidth,
                         height: secondHeight,
                         borderWidth,
-                        borderColor: this._colorObj.specifiedColor(borderColor)[500]
+                        borderColor: this._colorObj.specifiedColor(borderColor)[500],
                     }}
                     >
                         <Paper className={`${this.props.classes.paper} ${this.props.classes.third}`}
@@ -170,7 +173,7 @@ class ContentMeta extends React.Component<Props>{
                             width: thirdWidth,
                             height: thirdHeight,
                             borderWidth,
-                            borderColor: this._colorObj.specifiedColor(borderColor)[900]
+                            borderColor: this._colorObj.specifiedColor(borderColor)[900],
                         }}>
                         {wordOpacity===0 && displayMainContent?this._judgeMainContent(this.props.contentType):
                         <Typography color={'error'} align={'center'} variant={fontVariant} className={this.props.classes.centerWord} style={{

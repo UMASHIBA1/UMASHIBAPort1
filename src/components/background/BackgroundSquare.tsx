@@ -13,7 +13,8 @@ const styles = (theme:Theme) :StyleRules => createStyles({
         transition: "1.2s",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        // transform: 'translate3d(0,0,0)',
     },
     outline: {
         top: 0,
